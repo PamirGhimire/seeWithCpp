@@ -35,7 +35,7 @@ closing circle).
 
 (o) Extract FAST, SURF, and SIFT.
 
-(p) Find matches between two dierent views.
+(p) Find matches between two different views.
 
 (q) Calibrate the attached camera, show the extracted corners of the
 calibration pattern in each image, and undistort the input image
