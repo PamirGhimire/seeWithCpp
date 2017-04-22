@@ -5,6 +5,7 @@
 #include<iostream>
 #include<math.h>
 #include<qdebug.h>
+#include<vector>
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
@@ -15,6 +16,8 @@ void fn_swcAddSaltAndPepper(const cv::Mat &inputim, cv::Mat& outputim, int npixe
 // reduce the number of colors
 void fn_swcReduceColors(const cv::Mat &inputim, cv::Mat& outputim, int graystep);
 
+// sharpen image by convolving with laplacian kernel
+void fn_swcSharpenUsingLaplacian_3by3(const cv::Mat& inputim, cv::Mat& outputim);
 
 
 //----------------------------------------------------------

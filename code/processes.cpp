@@ -76,3 +76,24 @@ void fn_swcReduceColors(const cv::Mat &inputim, cv::Mat& outputim, int graystep)
 
 }
 
+//----------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+
+void fn_swcSharpenUsingLaplacian_3by3(const cv::Mat &inputim, cv::Mat &outputim)
+{
+    // reallocate output if necessary so that it is the same size at input
+    outputim.create(inputim.size(), inputim.type());
+
+    // create a 3x3 laplacian kernel
+    cv::Mat kernel3 = cv::Mat(3, 3, CV_32F, cv::Scalar(0));
+
+    kernel3.at<float>(1, 1) = 5.0;
+    kernel3.at<float>(0, 1) = -1.0;
+    kernel3.at<float>(2, 1) = -1.0;
+    kernel3.at<float>(1, 0) = -1.0;
+    kernel3.at<float>(1, 2) = -1.0;
+
+    // convolve with the kernel using filter2D
+    cv::filter2D(inputim, outputim, inputim.depth(), kernel3);
+
+}
