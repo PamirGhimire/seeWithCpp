@@ -8,8 +8,11 @@ swc_controller::swc_controller()
     mv_inputim = cv::Mat(640, 480, CV_8UC1, cv::Scalar(200));
     mv_inputim.copyTo(mv_outputim);
 
-    // Initialize pointers to different modules
+    // Initialize pointers to different models:
+    // Salt and Pepper noise model
     mod_addNoiseSaltAndPepper = new swc_addNoiseSaltAndPepper();
+    // Add Logo Model
+    mod_addLogo = new swc_addLogo();
 }
 
 //---------------------------------------------------------------------
@@ -75,6 +78,50 @@ void swc_controller::addNoiseSaltAndPepper_set_NcorruptedPixels(int n)
     mod_addNoiseSaltAndPepper->mf_setNPixels2Corrupt(n);
 }
 
+//---------------------------------------------------------------------
+// Module : Add Logo
+// get logo
+cv::Mat swc_controller::addLogo_getLogo() const{
+    return mod_addLogo->mf_getLogo();
+}
+//---------------------------------------------------------------------
+// Module : Add Logo
+// set logo image
+bool swc_controller::addLogo_setLogo(std::string logoFilename){
+    return mod_addLogo->mf_setLogo(logoFilename);
+}
+//---------------------------------------------------------------------
+// Module : Add Logo
+// add logo to a given image
+void swc_controller::addLogo_process_addLogoTo(const cv::Mat& inputim, cv::Mat& outputim){
+    mod_addLogo->mf_addLogoTo(inputim, outputim);
+}
+//---------------------------------------------------------------------
+// Module : Add Logo
+// get logo width
+int swc_controller::addLogo_getLogoWidth() const{
+    return mod_addLogo->mf_getLogoWidth();
+}
+
+//---------------------------------------------------------------------
+// Module : Add Logo
+// set logo width
+void swc_controller::addLogo_setLogoWidth(int logoWidth){
+    mod_addLogo->mf_setLogoWidth(logoWidth);
+}
+
+//---------------------------------------------------------------------
+// Module : Add Logo
+// get logo height
+int swc_controller::addLogo_getLogoHeight() const{
+    return mod_addLogo->mf_getLogoHeight();
+}
+//---------------------------------------------------------------------
+// Module : Add Logo
+// set logo height
+void swc_controller::addLogo_setLogoHeight(int logoHeight) const{
+    mod_addLogo->mf_setLogoHeight(logoHeight);
+}
 
 
 
