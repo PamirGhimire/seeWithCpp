@@ -2,6 +2,7 @@
 
 //---------------------------------------------------------------------
 // Controller : default constructor
+//---------------------------------------------------------------------
 swc_controller::swc_controller()
 {
     // Initialize controller member variables
@@ -17,6 +18,7 @@ swc_controller::swc_controller()
 
 //---------------------------------------------------------------------
 // Controller : destructor
+//---------------------------------------------------------------------
 swc_controller::~swc_controller()
 {
     // Release pointers to different modules
@@ -26,6 +28,7 @@ swc_controller::~swc_controller()
 
 //---------------------------------------------------------------------
 // Controller : set input image
+//---------------------------------------------------------------------
 bool swc_controller::mf_setInputImage(std::string filename)
 {
 
@@ -45,6 +48,7 @@ bool swc_controller::mf_setInputImage(std::string filename)
 
 //---------------------------------------------------------------------
 // Controller : get input image
+//---------------------------------------------------------------------
 cv::Mat swc_controller::mf_getInputImage() const
 {
     return mv_inputim;
@@ -52,6 +56,7 @@ cv::Mat swc_controller::mf_getInputImage() const
 
 //---------------------------------------------------------------------
 // Controller : get output image
+//---------------------------------------------------------------------
 cv::Mat swc_controller::mf_getOutputImage() const
 {
     return mv_outputim;
@@ -59,6 +64,7 @@ cv::Mat swc_controller::mf_getOutputImage() const
 
 //---------------------------------------------------------------------
 // Module : Add salt and pepper noise : process image
+//---------------------------------------------------------------------
 void swc_controller::addNoiseSaltAndPepper_process()
 {
     mod_addNoiseSaltAndPepper->mf_addSaltAndPepper(mv_inputim, mv_outputim);
@@ -66,6 +72,7 @@ void swc_controller::addNoiseSaltAndPepper_process()
 
 //---------------------------------------------------------------------
 // Module : Add salt and pepper noise : get how many pixels the module is corrupting
+//---------------------------------------------------------------------
 int swc_controller::addNoiseSaltAndPepper_get_NcorruptedPixels()
 {
     return mod_addNoiseSaltAndPepper->mf_getNPixels2Corrput();
@@ -73,6 +80,7 @@ int swc_controller::addNoiseSaltAndPepper_get_NcorruptedPixels()
 
 //---------------------------------------------------------------------
 // Module : Add salt and pepper noise : set how many pixels the module is to corrupt
+//---------------------------------------------------------------------
 void swc_controller::addNoiseSaltAndPepper_set_NcorruptedPixels(int n)
 {
     mod_addNoiseSaltAndPepper->mf_setNPixels2Corrupt(n);
@@ -80,24 +88,28 @@ void swc_controller::addNoiseSaltAndPepper_set_NcorruptedPixels(int n)
 
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // get logo
 cv::Mat swc_controller::addLogo_getLogo() const{
     return mod_addLogo->mf_getLogo();
 }
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // set logo image
 bool swc_controller::addLogo_setLogo(std::string logoFilename){
     return mod_addLogo->mf_setLogo(logoFilename);
 }
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // add logo to a given image
 void swc_controller::addLogo_process_addLogoTo(const cv::Mat& inputim, cv::Mat& outputim){
     mod_addLogo->mf_addLogoTo(inputim, outputim);
 }
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // get logo width
 int swc_controller::addLogo_getLogoWidth() const{
     return mod_addLogo->mf_getLogoWidth();
@@ -105,6 +117,7 @@ int swc_controller::addLogo_getLogoWidth() const{
 
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // set logo width
 void swc_controller::addLogo_setLogoWidth(int logoWidth){
     mod_addLogo->mf_setLogoWidth(logoWidth);
@@ -112,16 +125,68 @@ void swc_controller::addLogo_setLogoWidth(int logoWidth){
 
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // get logo height
 int swc_controller::addLogo_getLogoHeight() const{
     return mod_addLogo->mf_getLogoHeight();
 }
 //---------------------------------------------------------------------
 // Module : Add Logo
+//---------------------------------------------------------------------
 // set logo height
 void swc_controller::addLogo_setLogoHeight(int logoHeight) const{
     mod_addLogo->mf_setLogoHeight(logoHeight);
 }
 
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// Compute histogram normalized image
+void swc_controller::computeHistogram_process_computeHistogramNormalizedImage(const cv::Mat& inputim, cv::Mat& outputim){
+    mod_computeHistogram->mf_computeHistogramNormalizedImage(inputim, outputim);
+}
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// Returns histogram array of cv::Mat image
+cv::Mat swc_controller::computeHistogram_process_computeHistogram(const cv::Mat& inputim){
+    return mod_computeHistogram->mf_computeHistogram(inputim);
+}
 
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// compute image bar graph of 1D histogram of input image
+void swc_controller::computeHistogram_process_computeHistogramImage(const cv::Mat& inputim, cv::Mat &histImage){
+    mod_computeHistogram->mf_computeHistogramImage(inputim, histImage);
+}
 
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// get number of histogram bins
+int swc_controller::computeHistogram_getnHistBins(){
+    return mod_computeHistogram->mf_getnHistBins();
+}
+
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// set number of histogram bins
+void swc_controller::computeHistogram_setnHistBins(int nHistBins){
+    mod_computeHistogram->mf_setnHistBins(nHistBins);
+}
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// get current intensity range for which hist is computed
+float* swc_controller::computeHistogram_getIntensityRange(){
+    return mod_computeHistogram->mf_getIntensityRange();
+}
+//---------------------------------------------------------------------
+// Module : Compute Histogram
+//---------------------------------------------------------------------
+// set intensity range
+void swc_controller::computeHistogram_setIntensityRange(float minIntensity, float maxIntensity){
+    mod_computeHistogram->mf_setIntensityRange(minIntensity, maxIntensity);
+}
