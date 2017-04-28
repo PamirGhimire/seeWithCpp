@@ -1,0 +1,15 @@
+    ui->i2iProcesses->addItem("Add salt and pepper noise");     //oneviewPcode 1        
+    ui->i2iProcesses->addItem("Show Logo at top left corner");  //oneviewPcode 2
+    ui->i2iProcesses->addItem("Convert to new colorspace");     //oneviewPcode 3
+    ui->i2iProcesses->addItem("Equalize histogram");            //oneviewPcode 4
+    ui->i2iProcesses->addItem("Dilate");        //oneviewPcode 5
+    ui->i2iProcesses->addItem("Erode");         //oneviewPcode 6
+    ui->i2iProcesses->addItem("Open");          //oneviewPcode 7
+    ui->i2iProcesses->addItem("Close");         //oneviewPcode 8
+    ui->i2iProcesses->addItem("Blur");          //oneviewPcode 9
+    ui->i2iProcesses->addItem("Apply Sobel");   //oneviewPcode 10
+    ui->i2iProcesses->addItem("Apply Laplacian");           //oneviewPcode 11
+    ui->i2iProcesses->addItem("Apply custom kernel");       //oneviewPcode 12
+    ui->i2iProcesses->addItem("Detect Edges using Canny");  //oneviewPcode 13
+    ui->i2iProcesses->addItem("Extract lines and Circles using Hough");     //oneviewPcode 14
+    ui->i2iProcesses->addItem("Find contours of connected components");     //oneviewPcode 15
