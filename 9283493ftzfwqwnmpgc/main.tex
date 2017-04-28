@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset { %
+    language=C++,
+    %backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
+
+\title{SEE WITH C++ \\ A Computer Vision Toolbox in C++ \\ ~ \\ Project Work for Course on: \\ Visual Perception \\ Master Computer Vision and Robotics (CVR) \\ UBourgogne, Le Creusot Antenna}
+\author{Pamir Ghimire}
+\date{April, 2017}
+\begin{document}
+%--------------------------------------
+\maketitle
+\pagebreak
+
+%--------------------------------------
+\section{Classes:}
+%--------------------------------------
+% Class for computing histograms of images
+%--------------------------------------
+\subsection{swc\_computeHistogram:}
+Returns the histogram of a uni-channel image (matrix with one page).
+
+\subsubsection{Member Variables:}
+\begin{lstlisting}
+private:
+    // number of histogram bins
+    int mv_nHistBins;
+
+    // min and max intensity values
+    float mv_intensityRange[2];
+    
+\end{lstlisting}
+
+\subsubsection{Methods:}
+\begin{lstlisting}
+
+public:
+
+	// Default constructor
+    swc_computeHistogram();
+
+    // Compute histogram normalized image
+    void mf_computeHistogramNormalizedImage(const cv::Mat& inputim, cv::Mat& outputIm);
+
+    // Returns histogram array of cv::Mat image
+    cv::Mat mf_computeHistogram(const cv::Mat& inputim);
+
+    // compute image bar graph of 1D histogram of input image
+    void mf_computeHistogramImage(const cv::Mat& inputim, cv::Mat &histImage);
+
+    // get number of histogram bins
+    int mf_getnHistBins();
+
+    // set number of histogram bins
+    void mf_setnHistBins(int nHistBins);
+
+    // get current intensity range for which hist is computed
+    float *mf_getIntensityRange();
+
+    // set intensity range
+    void mf_setIntensityRange(float minIntensity, float maxIntensity);
+
+\end{lstlisting}
+
+%--------------------------------------
+% Class for 
+\subsection{swc\_computeHistogram:}
+
+
+\subsubsection{Member Variables:}
+\subsubsection{Methods:}
+
+
+%--------------------------------------
+(Type your content here.)
+\end{document}
