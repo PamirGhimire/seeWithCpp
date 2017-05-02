@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1311</width>
-    <height>737</height>
+    <width>1316</width>
+    <height>815</height>
    </rect>
   </property>
   <property name="palette">
@@ -434,8 +434,8 @@
      <rect>
       <x>80</x>
       <y>30</y>
-      <width>500</width>
-      <height>550</height>
+      <width>480</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -462,8 +462,8 @@
      <rect>
       <x>700</x>
       <y>30</y>
-      <width>500</width>
-      <height>550</height>
+      <width>480</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -676,7 +676,7 @@
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>630</y>
+      <y>660</y>
       <width>150</width>
       <height>35</height>
      </rect>
@@ -694,7 +694,7 @@
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>630</y>
+      <y>660</y>
       <width>150</width>
       <height>35</height>
      </rect>
@@ -712,7 +712,7 @@
     <property name="geometry">
      <rect>
       <x>870</x>
-      <y>630</y>
+      <y>660</y>
       <width>200</width>
       <height>35</height>
      </rect>
@@ -722,7 +722,7 @@
     <property name="geometry">
      <rect>
       <x>870</x>
-      <y>600</y>
+      <y>630</y>
       <width>150</width>
       <height>30</height>
      </rect>
@@ -731,13 +731,26 @@
      <string>Chosen 1-view Process</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="processImage">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>660</y>
+      <width>150</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Process</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1311</width>
+     <width>1316</width>
      <height>19</height>
     </rect>
    </property>

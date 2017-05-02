@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include<qfiledialog.h>
 #include"swc_controller.h"
+#include"swc_processmanager.h"
 #include"processespane.h"
 #include<qdebug.h>
 
@@ -44,6 +46,10 @@ private slots:
     void on_processesPane_clicked();
     void on_apply_in_processPane_clicked();
 
+    void on_loadImage_clicked();
+
+    void on_processImage_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -56,7 +62,24 @@ private:
     // Interface to the controller
     swc_controller* controller;
 
+    // Interface to process manager
+    swc_processManager* processManager;
 
+    // Function: set gui display by reading controller's image buffers
+    void mf_mainwindow_setdisplay();
+
+    // variables for displaying image
+    cv::Mat displayim_in;
+    cv::Mat displayim_out;
+
+    QImage displayqim_in;
+    QImage displayqim_out;
+
+    const int displayim_width = 480;
+    const int displayim_height = 600;
+
+    // logoFlag is true if user has requested showing logo
+    bool logoFlag;
 
 };
 

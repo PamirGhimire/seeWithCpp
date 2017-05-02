@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     swc_addlogo.cpp \
     swc_addnoisesaltandpepper.cpp \
     swc_computehistogram.cpp \
-    swc_controller.cpp
+    swc_controller.cpp \
+    swc_processmanager.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
     swc_addlogo.h \
     swc_addnoisesaltandpepper.h \
     swc_computehistogram.h \
-    swc_controller.h
+    swc_controller.h \
+    swc_processmanager.h
 
 FORMS    += mainwindow.ui \
     processespane.ui

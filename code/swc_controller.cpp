@@ -36,12 +36,14 @@ bool swc_controller::mf_setInputImage(std::string filename)
 
     // reallocate mv_inputim so that it is of same size and type as the read image
     mv_inputim.create(inputim.size(), inputim.type());
-    mv_inputim = inputim;
+    inputim.copyTo(mv_inputim);
 
     // return false if the image was not loaded
     if (!mv_inputim.data){
+        qDebug() << "failed loading image";
         return false;
     }else{
+        qDebug() << "Loaded selected image";
         return true;
     }
 }
@@ -61,6 +63,7 @@ cv::Mat swc_controller::mf_getOutputImage() const
 {
     return mv_outputim;
 }
+
 
 //---------------------------------------------------------------------
 // Module : Add salt and pepper noise : process image
@@ -190,3 +193,4 @@ float* swc_controller::computeHistogram_getIntensityRange(){
 void swc_controller::computeHistogram_setIntensityRange(float minIntensity, float maxIntensity){
     mod_computeHistogram->mf_setIntensityRange(minIntensity, maxIntensity);
 }
+

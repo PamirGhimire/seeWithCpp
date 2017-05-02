@@ -7,6 +7,7 @@
 #include <opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
+#include<qdebug.h>
 
 #include"swc_addnoisesaltandpepper.h"
 #include"swc_addlogo.h"
@@ -132,6 +133,13 @@ public:
 
     // set intensity range
     void computeHistogram_setIntensityRange(float minIntensity, float maxIntensity);
+
+    //------------------------------------------------------------
+    // Process manager model:
+    //------------------------------------------------------------
+    std::string getOneViewProcessName(int oneViewProcessCode);
+
+
 
     //------------------------------------------------------------
     //
