@@ -14,7 +14,7 @@ processesPane::processesPane(QWidget *parent) :
     // ADD IMAGE-TO-IMAGE PROCESSES
     //----------------------------------------------------
     ui->i2iProcesses->addItem("Add salt and pepper noise");     //oneviewPcode 0
-    ui->i2iProcesses->addItem("Show Logo at top left corner");  //oneviewPcode 1
+    ui->i2iProcesses->addItem("Show Logo at bottom right corner");  //oneviewPcode 1
     ui->i2iProcesses->addItem("Convert to new colorspace");     //oneviewPcode 2
     ui->i2iProcesses->addItem("Equalize histogram");            //oneviewPcode 3
     ui->i2iProcesses->addItem("Dilate");        //oneviewPcode 4
@@ -70,4 +70,16 @@ void processesPane::on_apply_clicked()
 //---------------------------------------------------------------------
 int processesPane::mf_getCurrentOneViewProcess(){
     return mv_currentOneViewProcess;
+}
+
+//---------------------------------------------------------------------
+// Set parameters (details) for user's process of choice:
+// Signal to the mainwindow that user wants to set details
+//---------------------------------------------------------------------
+void processesPane::on_setDetails_clicked()
+{
+    int temp = mv_currentOneViewProcess;
+    mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
+    emit ms_setDetailsButtonClicked();
+    mv_currentOneViewProcess = temp;
 }

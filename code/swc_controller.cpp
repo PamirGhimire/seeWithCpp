@@ -107,8 +107,8 @@ bool swc_controller::addLogo_setLogo(std::string logoFilename){
 // Module : Add Logo
 //---------------------------------------------------------------------
 // add logo to a given image
-void swc_controller::addLogo_process_addLogoTo(const cv::Mat& inputim, cv::Mat& outputim){
-    mod_addLogo->mf_addLogoTo(inputim, outputim);
+void swc_controller::addLogo_process_addLogoTo(){
+    mod_addLogo->mf_addLogoTo(mv_inputim, mv_outputim);
 }
 //---------------------------------------------------------------------
 // Module : Add Logo

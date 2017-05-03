@@ -52,7 +52,7 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
 //-----------------------------------------------
 // Execute process described by the gui
 //----------------------------------------------------
-bool swc_processManager::mf_executeProcess(int processcode, swc_controller *controller)
+bool swc_processManager::mf_executeProcess(int processcode, swc_controller *controller, swc_processcommunicator *processComm)
 {
     switch (processcode){
         //--------------------------------
@@ -67,11 +67,13 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
     }
 
         //--------------------------------
-        // code 1: show logo
+        // code 1: add logo
         //--------------------------------
     case 1:
-
+        // add logo
+        controller->addLogo_process_addLogoTo();
         return true;
+
         // code 2: convert colorspace
     case 2:
 

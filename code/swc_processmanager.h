@@ -2,6 +2,7 @@
 #define SWC_PROCESSMANAGER_H
 #include<string>
 #include<swc_controller.h>
+#include<swc_processcommunicator.h>
 
 //----------------------------------------------------
 // One-view process code words:
@@ -41,8 +42,8 @@ public:
     // return name of the process corresponding to the one-view process code word
     std::string mf_getProcessName(int processcode);
 
-    // execute the process described by the gui
-    bool mf_executeProcess(int processcode, swc_controller* controller);
+    // execute the process described by the gui, using the passed parameters
+    bool mf_executeProcess(int processcode, swc_controller* controller, swc_processcommunicator* processComm);
 
 };
 

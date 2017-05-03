@@ -4,8 +4,8 @@
 swc_addLogo::swc_addLogo()
 {
     // some good initializations
-    mv_logoWidth = 32;
-    mv_logoHeight = 32;
+    mv_logoWidth = 64;
+    mv_logoHeight = 64;
 
     mv_logoim = cv::Mat(mv_logoWidth, mv_logoHeight, CV_8UC1, cv::Scalar(100));
 }

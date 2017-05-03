@@ -9,7 +9,7 @@
 //----------------------------------------------------
 // Identity Transformation           //oneviewPcode -100
 //("Add salt and pepper noise");     //oneviewPcode 0
-//("Show Logo at top left corner");  //oneviewPcode 1
+//("Show Logo at bottom right corner");  //oneviewPcode 1
 //("Convert to new colorspace");     //oneviewPcode 2
 //("Equalize histogram");            //oneviewPcode 3
 //("Dilate");        //oneviewPcode 4
@@ -53,9 +53,14 @@ private slots:
 
     void on_apply_clicked();
 
+    void on_setDetails_clicked();
+
 signals:
     // Emitted when apply button is clicked in one-view process pane
     void ms_applyButtonClicked();
+
+    // Emitted when set details button is clicked in one-view process pane
+    void ms_setDetailsButtonClicked();
 
 public:
     explicit processesPane(QWidget *parent = 0);

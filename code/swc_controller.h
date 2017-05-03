@@ -95,7 +95,7 @@ public:
     bool addLogo_setLogo(std::string logoFilename);
 
     // add logo to a given image
-    void addLogo_process_addLogoTo(const cv::Mat& inputim, cv::Mat& outputim);
+    void addLogo_process_addLogoTo();
 
     // get logo width
     int addLogo_getLogoWidth() const;

@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     swc_addnoisesaltandpepper.cpp \
     swc_computehistogram.cpp \
     swc_controller.cpp \
-    swc_processmanager.cpp
+    swc_processmanager.cpp \
+    swc_processcommunicator.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     swc_addnoisesaltandpepper.h \
     swc_computehistogram.h \
     swc_controller.h \
-    swc_processmanager.h
+    swc_processmanager.h \
+    swc_processcommunicator.h
 
 FORMS    += mainwindow.ui \
     processespane.ui

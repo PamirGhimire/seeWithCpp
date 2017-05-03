@@ -6,6 +6,7 @@
 #include"swc_controller.h"
 #include"swc_processmanager.h"
 #include"processespane.h"
+#include"swc_processcommunicator.h"
 #include<qdebug.h>
 
 //----------------------------------------------------
@@ -44,7 +45,10 @@ public:
 
 private slots:
     void on_processesPane_clicked();
+
     void on_apply_in_processPane_clicked();
+
+    void on_setDetails_in_processPane_clicked();
 
     void on_loadImage_clicked();
 
@@ -64,6 +68,9 @@ private:
 
     // Interface to process manager
     swc_processManager* processManager;
+
+    // Interface to the process communicator
+    swc_processcommunicator* processComm;
 
     // Function: set gui display by reading controller's image buffers
     void mf_mainwindow_setdisplay();

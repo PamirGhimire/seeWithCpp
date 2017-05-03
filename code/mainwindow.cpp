@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // Initialize the process communicator
+    processComm = new swc_processcommunicator();
+
     // Initialize the process manager
     processManager = new swc_processManager();
 
@@ -22,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Connecting one-view process pane signals with mainwindow slots:
     //----------------------------------------------------------
     connect(mw_oneViewProcessesPane, SIGNAL(ms_applyButtonClicked()), this, SLOT(on_apply_in_processPane_clicked()) );
+    connect(mw_oneViewProcessesPane, SIGNAL(ms_setDetailsButtonClicked()), this, SLOT(on_setDetails_in_processPane_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -55,10 +59,39 @@ void MainWindow::on_apply_in_processPane_clicked()
     ui->currentOneviewProcess->document()->setPlainText(currProcess);
 
     // tell the process manager to execute current process code
-    processManager->mf_executeProcess(mv_currentOneViewProcess, controller);
+    processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
 
     // update display
     mf_mainwindow_setdisplay();
+}
+
+//----------------------------------------------------------
+// Get parameters for the user selected process
+// Open dialog according to choice of process, pass the parameters to process communicator
+//----------------------------------------------------------
+void MainWindow::on_setDetails_in_processPane_clicked()
+{
+    switch(mw_oneViewProcessesPane->mf_getCurrentOneViewProcess()){
+    case 0:
+            // get details for salt and pepper noise
+            break;
+
+    case 1:{
+            // get the logo filename
+            QString logo_fileName = QFileDialog::getOpenFileName(this, tr("Select Logo"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
+
+            // show one-view process pane again
+            mw_oneViewProcessesPane->raise();
+
+            // set logo
+            controller->addLogo_setLogo(logo_fileName.toStdString());
+
+            break;
+        }
+
+    default:
+            break;
+    }
 }
 
 //----------------------------------------------------------
@@ -97,10 +130,10 @@ void MainWindow::mf_mainwindow_setdisplay()
     displayqim_out = QImage((const unsigned char*)(displayim_out.data), displayim_width, displayim_height, QImage::Format_Grayscale8);
 
     // add logo if logoflag is true
-    if (logoFlag == true){
-        controller->addLogo_process_addLogoTo(displayim_in, displayim_in);
-        controller->addLogo_process_addLogoTo(displayim_out, displayim_out);
-    }
+//    if (logoFlag == true){
+//        controller->addLogo_process_addLogoTo(displayim_in, displayim_in);
+//        controller->addLogo_process_addLogoTo(displayim_out, displayim_out);
+//    }
 
     // set input label to display input qimage
     ui->inputWindow->setPixmap(QPixmap::fromImage(displayqim_in));
@@ -115,6 +148,6 @@ void MainWindow::mf_mainwindow_setdisplay()
 //---------------------------------------------------------------------------------------
 void MainWindow::on_processImage_clicked()
 {
-    processManager->mf_executeProcess(mv_currentOneViewProcess, controller);
+    processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
     mf_mainwindow_setdisplay();
 }
