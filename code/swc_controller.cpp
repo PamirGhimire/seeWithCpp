@@ -10,10 +10,16 @@ swc_controller::swc_controller()
     mv_inputim.copyTo(mv_outputim);
 
     // Initialize pointers to different models:
+    //---------------------------------------------------------------------
     // Salt and Pepper noise model
     mod_addNoiseSaltAndPepper = new swc_addNoiseSaltAndPepper();
+    //---------------------------------------------------------------------
     // Add Logo Model
     mod_addLogo = new swc_addLogo();
+    //---------------------------------------------------------------------
+    // Compute Histogram Model
+    mod_computeHistogram = new swc_computeHistogram();
+    //---------------------------------------------------------------------
 }
 
 //---------------------------------------------------------------------
@@ -145,23 +151,25 @@ void swc_controller::addLogo_setLogoHeight(int logoHeight) const{
 // Module : Compute Histogram
 //---------------------------------------------------------------------
 // Compute histogram normalized image
-void swc_controller::computeHistogram_process_computeHistogramNormalizedImage(const cv::Mat& inputim, cv::Mat& outputim){
-    mod_computeHistogram->mf_computeHistogramNormalizedImage(inputim, outputim);
+void swc_controller::computeHistogram_process_computeHistogramNormalizedImage(){
+    mod_computeHistogram->mf_computeHistogramNormalizedImage(mv_inputim, mv_outputim);
 }
 //---------------------------------------------------------------------
 // Module : Compute Histogram
 //---------------------------------------------------------------------
 // Returns histogram array of cv::Mat image
-cv::Mat swc_controller::computeHistogram_process_computeHistogram(const cv::Mat& inputim){
-    return mod_computeHistogram->mf_computeHistogram(inputim);
+cv::Mat swc_controller::computeHistogram_process_computeHistogram(){
+    return mod_computeHistogram->mf_computeHistogram(mv_inputim);
 }
 
 //---------------------------------------------------------------------
 // Module : Compute Histogram
 //---------------------------------------------------------------------
 // compute image bar graph of 1D histogram of input image
-void swc_controller::computeHistogram_process_computeHistogramImage(const cv::Mat& inputim, cv::Mat &histImage){
-    mod_computeHistogram->mf_computeHistogramImage(inputim, histImage);
+cv::Mat swc_controller::computeHistogram_process_computeHistogramImage(){
+    cv::Mat histImage(300, 200, CV_8UC1);
+    mod_computeHistogram->mf_computeHistogramImage(mv_inputim, histImage);
+    return histImage;
 }
 
 //---------------------------------------------------------------------

@@ -23,10 +23,12 @@
 //("Detect Edges using Canny");  //oneviewPcode 12
 //("Extract lines and Circles using Hough");     //oneviewPcode 13
 //("Find contours of connected components");     //oneviewPcode 14
-enum{addSaltAndPepper,
-    showLogo,
-    convertToNewCspace,
-    equalizeHistogram,
+//("Compute Histogram")                         //oneviewPcode 15
+enum{addSaltAndPepper = 0,
+    showLogo = 1,
+    convertToNewCspace = 2,
+    equalizeHistogram = 3,
+    showHistogram = 15,
     identity = -100};
 //----------------------------------------------------
 
@@ -54,6 +56,8 @@ private slots:
     void on_apply_clicked();
 
     void on_setDetails_clicked();
+
+    void on_i2mProcesses_activated(const QModelIndex &index);
 
 signals:
     // Emitted when apply button is clicked in one-view process pane

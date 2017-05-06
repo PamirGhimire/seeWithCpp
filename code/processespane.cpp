@@ -30,6 +30,10 @@ processesPane::processesPane(QWidget *parent) :
     ui->i2iProcesses->addItem("Find contours of connected components");     //oneviewPcode 14
     //----------------------------------------------------
 
+    //----------------------------------------------------
+    // ADD IMAGE-TO-MEASUREMENT PROCESSES:
+    //----------------------------------------------------
+    ui->i2mProcesses->addItem("Compute Histogram");
 }
 
 //---------------------------------------------------------------------
@@ -42,11 +46,11 @@ processesPane::~processesPane()
 
 
 //---------------------------------------------------------------------
-//
+// I2I Processes:
 //---------------------------------------------------------------------
 void processesPane::on_i2iProcesses_activated(const QModelIndex &index)
 {
-
+    ui->i2mProcesses->setCurrentRow(-100);
 }
 
 //---------------------------------------------------------------------
@@ -62,7 +66,13 @@ void processesPane::on_close_clicked()
 //---------------------------------------------------------------------
 void processesPane::on_apply_clicked()
 {
-    mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
+    if (ui->i2iProcesses->currentRow() > 0){
+        mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
+    }else{
+        mv_currentOneViewProcess = 15 + ui->i2mProcesses->currentRow();
+    }
+
+    qDebug()<< mv_currentOneViewProcess;
     emit ms_applyButtonClicked();
 }
 //---------------------------------------------------------------------
@@ -82,4 +92,14 @@ void processesPane::on_setDetails_clicked()
     mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
     emit ms_setDetailsButtonClicked();
     mv_currentOneViewProcess = temp;
+    qDebug() << mv_currentOneViewProcess << " returned to previous";
+}
+
+//---------------------------------------------------------------------
+// I2Measurement Processes:
+//---------------------------------------------------------------------
+void processesPane::on_i2mProcesses_activated(const QModelIndex &index)
+{
+    ui->i2iProcesses->setCurrentRow(-100);
+
 }

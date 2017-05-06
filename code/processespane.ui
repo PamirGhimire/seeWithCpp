@@ -54,12 +54,12 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>150</width>
-     <height>14</height>
+     <width>261</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Image to Image</string>
+    <string>Image to Image - Add and Apply </string>
    </property>
   </widget>
   <widget class="QLabel" name="image2measurement">
@@ -67,12 +67,12 @@
     <rect>
      <x>20</x>
      <y>240</y>
-     <width>150</width>
-     <height>14</height>
+     <width>251</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Image to Measurement</string>
+    <string>Image to Measurement - Apply</string>
    </property>
   </widget>
   <widget class="QListWidget" name="i2iProcesses">
@@ -105,7 +105,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Set Details</string>
+    <string>Add</string>
    </property>
   </widget>
  </widget>

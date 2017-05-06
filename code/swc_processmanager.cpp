@@ -44,7 +44,7 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
         return "Equalize histogram";
         break;
     default:
-        return "Not an available Process";
+        return "Not an active Process";
     }
 }
 

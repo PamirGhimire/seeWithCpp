@@ -4,7 +4,7 @@
 swc_computeHistogram::swc_computeHistogram()
 {
     // initialize histogram with 256 bins
-    mv_nHistBins = 256;
+    mv_nHistBins = 255;
 
     // histogram considers intensities 0 <= i <= 255
     mv_intensityRange[0] = 0.0;
@@ -19,9 +19,9 @@ cv::Mat swc_computeHistogram::mf_computeHistogram(const cv::Mat &inputim)
     const float* ptr_IntensityRange = {mv_intensityRange};
     bool uniform = true;
     bool accumulate = false;
-    cv::Mat histArray;
+    cv::Mat histArray(1, 256, CV_8UC1);
 
-    calcHist( &inputim,             // input image
+    cv::calcHist(&inputim,             // input image
               1,                    // number of channels in inputim
               0,                    // channel # to be considered
               cv::Mat(),            // mask

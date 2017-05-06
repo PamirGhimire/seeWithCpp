@@ -51,15 +51,35 @@ void MainWindow::on_processesPane_clicked()
 //----------------------------------------------------------
 void MainWindow::on_apply_in_processPane_clicked()
 {
-    // update code for current one view process
-    mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
+    // current process code is updated only if process is an image-to-image process
+    if (mv_currentOneViewProcess < showHistogram){
+        // update code for current one view process
+        mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
 
-    // update current-process display
-    QString currProcess = QString::fromStdString(processManager->mf_getProcessName(mv_currentOneViewProcess) );
-    ui->currentOneviewProcess->document()->setPlainText(currProcess);
+        // update current-process display
+        QString currProcess = QString::fromStdString(processManager->mf_getProcessName(mv_currentOneViewProcess) );
+        ui->currentOneviewProcess->document()->setPlainText(currProcess);
 
-    // tell the process manager to execute current process code
-    processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
+        // tell the process manager to execute current process code
+        processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
+    }
+    // if not, the measurement is shown in a different window
+    else{
+
+        switch(mv_currentOneViewProcess){
+        // measurement = histogram of input image
+        case showHistogram:{
+            qDebug() << "asked to show histogram";
+            // tell controller to show histogram
+            cv::Mat histImage = controller->computeHistogram_process_computeHistogramImage();
+            cv::namedWindow("Histogram of Input Image");
+            cv::imshow("Histogram of Input Image", histImage);
+            cv::waitKey(0);
+        }
+
+
+        }
+    }
 
     // update display
     mf_mainwindow_setdisplay();
@@ -72,25 +92,26 @@ void MainWindow::on_apply_in_processPane_clicked()
 void MainWindow::on_setDetails_in_processPane_clicked()
 {
     switch(mw_oneViewProcessesPane->mf_getCurrentOneViewProcess()){
-    case 0:
-            // get details for salt and pepper noise
-            break;
+    case addSaltAndPepper:
+        // get details for salt and pepper noise
+        break;
 
-    case 1:{
-            // get the logo filename
-            QString logo_fileName = QFileDialog::getOpenFileName(this, tr("Select Logo"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
+    case showLogo:{
+        // get the logo filename
+        QString logo_fileName = QFileDialog::getOpenFileName(this, tr("Select Logo"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
 
-            // show one-view process pane again
-            mw_oneViewProcessesPane->raise();
+        // show one-view process pane again
+        mw_oneViewProcessesPane->raise();
 
-            // set logo
-            controller->addLogo_setLogo(logo_fileName.toStdString());
+        // set logo
+        controller->addLogo_setLogo(logo_fileName.toStdString());
 
-            break;
-        }
+        break;
+    }
+
 
     default:
-            break;
+        break;
     }
 }
 
@@ -128,12 +149,6 @@ void MainWindow::mf_mainwindow_setdisplay()
     displayqim_in = QImage((const unsigned char*)(displayim_in.data), displayim_width, displayim_height, QImage::Format_Grayscale8);
     // get qt-label compatible image from output
     displayqim_out = QImage((const unsigned char*)(displayim_out.data), displayim_width, displayim_height, QImage::Format_Grayscale8);
-
-    // add logo if logoflag is true
-//    if (logoFlag == true){
-//        controller->addLogo_process_addLogoTo(displayim_in, displayim_in);
-//        controller->addLogo_process_addLogoTo(displayim_out, displayim_out);
-//    }
 
     // set input label to display input qimage
     ui->inputWindow->setPixmap(QPixmap::fromImage(displayqim_in));

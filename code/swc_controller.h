@@ -114,13 +114,13 @@ public:
     //------------------------------------------------------------
 
     // Compute histogram normalized image
-    void computeHistogram_process_computeHistogramNormalizedImage(const cv::Mat& inputim, cv::Mat& outputim);
+    void computeHistogram_process_computeHistogramNormalizedImage();
 
     // Returns histogram array of cv::Mat image
-    cv::Mat computeHistogram_process_computeHistogram(const cv::Mat& inputim);
+    cv::Mat computeHistogram_process_computeHistogram();
 
     // compute image bar graph of 1D histogram of input image
-    void computeHistogram_process_computeHistogramImage(const cv::Mat& inputim, cv::Mat &histImage);
+    cv::Mat computeHistogram_process_computeHistogramImage();
 
     // get number of histogram bins
     int computeHistogram_getnHistBins();
