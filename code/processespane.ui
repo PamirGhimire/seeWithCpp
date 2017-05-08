@@ -59,7 +59,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Image to Image - Add and Apply </string>
+    <string>Image to Image - Set details, then Apply </string>
    </property>
   </widget>
   <widget class="QLabel" name="image2measurement">
@@ -105,7 +105,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Add</string>
+    <string>Set Details</string>
    </property>
   </widget>
  </widget>

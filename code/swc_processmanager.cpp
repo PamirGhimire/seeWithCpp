@@ -74,14 +74,23 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
         controller->addLogo_process_addLogoTo();
         return true;
 
+        //--------------------------------
         // code 2: convert colorspace
+        //--------------------------------
     case 2:
-
+        // add load image allows loading color images
         return true;
+
+        //--------------------------------
         // code 3: equalize histogram
+        //--------------------------------
     case 3:
-
+        controller->computeHistogram_process_computeHistogramNormalizedImage();
         return true;
+
+        //--------------------------------
+        // unrecognized code: do nothing
+        //--------------------------------
     default:
         return false;
     }

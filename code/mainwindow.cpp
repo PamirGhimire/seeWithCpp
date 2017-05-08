@@ -51,11 +51,11 @@ void MainWindow::on_processesPane_clicked()
 //----------------------------------------------------------
 void MainWindow::on_apply_in_processPane_clicked()
 {
-    // current process code is updated only if process is an image-to-image process
-    if (mv_currentOneViewProcess < showHistogram){
-        // update code for current one view process
-        mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
+    // update code for current one view process
+    mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
 
+    // the process manager is called only if the current process is an image-to-image process
+    if (mv_currentOneViewProcess < showHistogram){
         // update current-process display
         QString currProcess = QString::fromStdString(processManager->mf_getProcessName(mv_currentOneViewProcess) );
         ui->currentOneviewProcess->document()->setPlainText(currProcess);

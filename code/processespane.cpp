@@ -66,7 +66,9 @@ void processesPane::on_close_clicked()
 //---------------------------------------------------------------------
 void processesPane::on_apply_clicked()
 {
-    if (ui->i2iProcesses->currentRow() > 0){
+    qDebug() << ui->i2iProcesses->currentRow();
+
+    if (ui->i2iProcesses->currentRow() >= 0){
         mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
     }else{
         mv_currentOneViewProcess = 15 + ui->i2mProcesses->currentRow();
@@ -83,18 +85,16 @@ int processesPane::mf_getCurrentOneViewProcess(){
 }
 
 //---------------------------------------------------------------------
-// Set parameters (details) for user's process of choice:
-// Signal to the mainwindow that user wants to set details
+// Sets parameters (details) for user's process of choice:
+// Signals the mainwindow that user wants to set details
 //---------------------------------------------------------------------
 void processesPane::on_setDetails_clicked()
 {
-    int temp = mv_currentOneViewProcess;
-    mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
-    emit ms_setDetailsButtonClicked();
-    mv_currentOneViewProcess = temp;
-    qDebug() << mv_currentOneViewProcess << " returned to previous";
+    if (ui->i2iProcesses->currentRow() >= 0){
+        mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
+        emit ms_setDetailsButtonClicked();
+    }
 }
-
 //---------------------------------------------------------------------
 // I2Measurement Processes:
 //---------------------------------------------------------------------
