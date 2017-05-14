@@ -7,6 +7,7 @@
 #include"swc_processmanager.h"
 #include"processespane.h"
 #include"swc_processcommunicator.h"
+#include"swc_structuringelementinput.h"
 #include<qdebug.h>
 
 //----------------------------------------------------
@@ -50,6 +51,8 @@ private slots:
 
     void on_setDetails_in_processPane_clicked();
 
+    void on_ok_in_selInput_clicked();
+
     void on_loadImage_clicked();
 
     void on_processImage_clicked();
@@ -62,6 +65,9 @@ private:
 
     // Member-window containing one-view processes
     processesPane* mw_oneViewProcessesPane;
+
+    // Member-window for setting structuring element (Morphological operations)
+    swc_structuringElementInput* mw_selInput;
 
     // Interface to the controller
     swc_controller* controller;

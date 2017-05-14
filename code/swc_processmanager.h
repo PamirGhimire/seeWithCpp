@@ -30,10 +30,15 @@ class swc_processManager
 
 private:
     // ove-view process codes
-    enum{addSaltAndPepper,
-        showLogo,
-        convertToNewCspace,
-        equalizeHistogram,
+    enum{addSaltAndPepper = 0,
+        showLogo = 1,
+        convertToNewCspace = 2,
+        equalizeHistogram = 3,
+         dilate = 4,
+         erode = 5,
+         open = 6,
+         close = 7,
+        showHistogram = 15,
         identity = -100};
 
 public:

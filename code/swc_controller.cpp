@@ -20,6 +20,10 @@ swc_controller::swc_controller()
     // Compute Histogram Model
     mod_computeHistogram = new swc_computeHistogram();
     //---------------------------------------------------------------------
+    // Morphology Model
+    mod_morphology = new swc_morphology();
+    //---------------------------------------------------------------------
+
 }
 
 //---------------------------------------------------------------------
@@ -202,3 +206,80 @@ void swc_controller::computeHistogram_setIntensityRange(float minIntensity, floa
     mod_computeHistogram->mf_setIntensityRange(minIntensity, maxIntensity);
 }
 
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get mv_bwThreshold
+int swc_controller::morphology_getbwThreshold() const{
+    return mod_morphology->mf_getbwThreshold();
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// set mv_bwThreshold
+bool swc_controller::morphology_setbwThreshold(int bwThreshold){
+    mod_morphology->mf_setbwThreshold(bwThreshold);
+    return true;
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get structuring element
+cv::Mat swc_controller::morphology_getStructuringElement() const{
+    return mod_morphology->mf_getStructuringElement();
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// set structuring element
+bool swc_controller::morphology_setStructuringElement(const cv::Mat &structuringElement){
+    mod_morphology->mf_setStructuringElement(structuringElement);
+    return true;
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get binarized image
+cv::Mat swc_controller::morphology_getBinarizedInputIm() const{
+    return mod_morphology->mf_getBinarizedInputIm();
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get dilated input image
+bool swc_controller::morphology_dilate(){
+    mod_morphology->mf_dilate(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get eroded input image
+bool swc_controller::morphology_erode(){
+    mod_morphology->mf_erode(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get opened input image
+bool swc_controller::morphology_open() {
+    mod_morphology->mf_open(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Module : Morphology
+//------------------------------------------------------------
+// get closed input image
+bool swc_controller::morphology_close(){
+    mod_morphology->mf_close(mv_inputim, mv_outputim);
+    return true;
+}

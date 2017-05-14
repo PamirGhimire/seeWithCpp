@@ -89,6 +89,14 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
         return true;
 
         //--------------------------------
+        // code 4: dilate
+        //--------------------------------
+    case 4:
+        controller->morphology_setStructuringElement(processComm->sel_dilation);
+        controller->morphology_dilate();
+        return true;
+
+        //--------------------------------
         // unrecognized code: do nothing
         //--------------------------------
     default:

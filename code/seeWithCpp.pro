@@ -20,7 +20,10 @@ SOURCES += main.cpp\
     swc_computehistogram.cpp \
     swc_controller.cpp \
     swc_processmanager.cpp \
-    swc_processcommunicator.cpp
+    swc_processcommunicator.cpp \
+    swc_morphology.cpp \
+    swc_matrixinput.cpp \
+    swc_structuringelementinput.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -29,10 +32,15 @@ HEADERS  += mainwindow.h \
     swc_computehistogram.h \
     swc_controller.h \
     swc_processmanager.h \
-    swc_processcommunicator.h
+    swc_processcommunicator.h \
+    swc_morphology.h \
+    swc_matrixinput.h \
+    swc_structuringelementinput.h
 
 FORMS    += mainwindow.ui \
-    processespane.ui
+    processespane.ui \
+    swc_matrixinput.ui \
+    swc_structuringelementinput.ui
 
 #-------------------------------------------------
 #OPEN-CV3.2:

@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize the processes pane
     mw_oneViewProcessesPane = new processesPane();
 
+    // Initialize the structuring element input window
+    mw_selInput = new swc_structuringElementInput();
+
     // Initialize default one-view process as identity transform
     mv_currentOneViewProcess = identity;
 
@@ -26,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //----------------------------------------------------------
     connect(mw_oneViewProcessesPane, SIGNAL(ms_applyButtonClicked()), this, SLOT(on_apply_in_processPane_clicked()) );
     connect(mw_oneViewProcessesPane, SIGNAL(ms_setDetailsButtonClicked()), this, SLOT(on_setDetails_in_processPane_clicked()) );
+    connect(mw_selInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_selInput_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -109,10 +113,36 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         break;
     }
 
+    case dilate:{
+        // display the input interface for structuring element
+        mw_selInput->show();
+
+        // read the input, and make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+
+    }
 
     default:
         break;
     }
+}
+
+//----------------------------------------------------------
+// Ok button in structuring element input window clicked: update structuring element
+//----------------------------------------------------------
+void MainWindow::on_ok_in_selInput_clicked()
+{
+    // get the structuring element from the sel input window
+    cv::Mat sel = mw_selInput->mf_getSel();
+
+    // update the sel in process communicator
+    if (mv_currentOneViewProcess == dilate){
+        processComm->sel_dilation = sel;
+    }
+    else if (mv_currentOneViewProcess == erode){
+        processComm->sel_erosion = sel;
+    }
+
 }
 
 //----------------------------------------------------------

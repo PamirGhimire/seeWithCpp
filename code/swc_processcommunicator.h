@@ -1,9 +1,11 @@
 #ifndef SWC_PROCESSCOMMUNICATOR_H
 #define SWC_PROCESSCOMMUNICATOR_H
+
 #include<string>
+#include<opencv2/core/core.hpp>
 
 // class for communicating parameters between the gui = receiver of parameters
-//                                  and the process manager
+//                            and the process manager = executer of processes
 
 class swc_processcommunicator
 {
@@ -31,9 +33,18 @@ public:
     //("Extract lines and Circles using Hough");     //oneviewPcode 13
     //("Find contours of connected components");     //oneviewPcode 14
 
-    double nPercentPixelsToCorrupt; // while adding salt and pepper noise
-    std::string logoFilename; // for adding logo
+    // for adding salt and pepper noise
+    double nPercentPixelsToCorrupt;
 
+    // for adding logo
+    std::string logoFilename;
+
+    // for defining a structuring element
+    // dilation
+    cv::Mat sel_dilation;
+
+    // erosion
+    cv::Mat sel_erosion;
 
 };
 

@@ -12,7 +12,7 @@
 #include"swc_addnoisesaltandpepper.h"
 #include"swc_addlogo.h"
 #include "swc_computehistogram.h"
-
+#include "swc_morphology.h"
 
 class swc_controller
 {
@@ -41,9 +41,13 @@ private:
     swc_computeHistogram* mod_computeHistogram;
 
     //------------------------------------------------------------
+    // Morphology model
+    //------------------------------------------------------------
+    swc_morphology* mod_morphology;
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
-
 
 public:
     // Controller : Default constructor:
@@ -142,9 +146,39 @@ public:
 
 
     //------------------------------------------------------------
+    // Morphology model:
+    //------------------------------------------------------------
+    // get mv_bwThreshold
+    int morphology_getbwThreshold() const;
+
+    // set mv_bwThreshold
+    bool morphology_setbwThreshold(int bwThreshold);
+
+    // get structuring element
+    cv::Mat morphology_getStructuringElement() const;
+
+    // set structuring element
+    bool morphology_setStructuringElement(const cv::Mat &structuringElement);
+
+    // get binarized image
+    cv::Mat morphology_getBinarizedInputIm() const;
+
+    // get dilated input image
+    bool morphology_dilate();
+
+    // get eroded input image
+    bool morphology_erode();
+
+    // get opened input image
+    bool morphology_open() ;
+
+    // get closed input image
+    bool morphology_close() ;
+
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
-
 };
 
 #endif // SWC_CONTROLLER_H
