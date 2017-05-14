@@ -99,7 +99,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
     case addSaltAndPepper:
         // get details for salt and pepper noise
         break;
-
+    //----------------------------------------------------------
     case showLogo:{
         // get the logo filename
         QString logo_fileName = QFileDialog::getOpenFileName(this, tr("Select Logo"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
@@ -112,7 +112,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         break;
     }
-
+    //----------------------------------------------------------
     case dilate:{
         // display the input interface for structuring element
         mw_selInput->show();
@@ -120,10 +120,43 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         // read the input, and make changes in the process-communicator object
         // changes made through signals-slots mechanism
 
-    }
+        break;
 
+    }
+    //----------------------------------------------------------
+    case erode:{
+        // display the input interface for structuring element
+        mw_selInput->show();
+
+        // read the input, and make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+
+        break;
+    }
+    //----------------------------------------------------------
+    case open_morph:{
+        // display the input interface for structuring element
+        mw_selInput->show();
+
+        // read the input, and make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+
+        break;
+    }
+    //----------------------------------------------------------
+       case close_morph:{
+        // display the input interface for structuring element
+        mw_selInput->show();
+
+        // read the input, and make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+
+        break;
+    }
+    //----------------------------------------------------------
     default:
         break;
+    //----------------------------------------------------------
     }
 }
 
@@ -156,11 +189,13 @@ void MainWindow::on_loadImage_clicked()
     // get file name of image from ui
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
 
+    if (!fileName.data()->isNull()){
     // ask controller to load the fileName bearing image
     controller->mf_setInputImage(fileName.toStdString());
 
     // update display
     mf_mainwindow_setdisplay();
+    }
 }
 
 //---------------------------------------------------------------------------------------

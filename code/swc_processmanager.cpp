@@ -43,6 +43,19 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
     case 3:
         return "Equalize histogram";
         break;
+    case 4:
+        return "Dilate BW image";
+        break;
+    case 5:
+        return "Erode BW image";
+        break;
+    case 6:
+        return "Open BW image";
+        break;
+    case 7:
+        return "Close BW image";
+        break;
+
     default:
         return "Not an active Process";
     }
@@ -94,6 +107,28 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
     case 4:
         controller->morphology_setStructuringElement(processComm->sel_dilation);
         controller->morphology_dilate();
+        return true;
+
+        //--------------------------------
+        // code 5: erode
+        //--------------------------------
+    case 5:
+        controller->morphology_setStructuringElement(processComm->sel_erosion);
+        controller->morphology_erode();
+        return true;
+        //--------------------------------
+        // code 6: open
+        //--------------------------------
+    case 6:
+        controller->morphology_setStructuringElement(processComm->sel_erosion);
+        controller->morphology_open();
+        return true;
+        //--------------------------------
+        // code 7: close
+        //--------------------------------
+    case 7:
+        controller->morphology_setStructuringElement(processComm->sel_dilation);
+        controller->morphology_close();
         return true;
 
         //--------------------------------

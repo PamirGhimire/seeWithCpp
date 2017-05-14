@@ -112,15 +112,35 @@ bool swc_morphology::mf_erode(const cv::Mat& inputIm, cv::Mat& outputIm){
 //-------------------------------------------------
 // get opened input image
 //-------------------------------------------------
-bool swc_morphology::mf_open(const cv::Mat& inputIm, cv::Mat& outputIm) const{
-    cv::morphologyEx(inputIm, outputIm, cv::MORPH_OPEN, mv_structuringElement);
+bool swc_morphology::mf_open(const cv::Mat& inputIm, cv::Mat& outputIm){
+
+    // binarize
+    mf_binarizeInputIm(inputIm);
+    cv::Mat mv_temp;
+
+    // erode
+    mf_erode(mv_inputImBinarized, mv_temp);
+
+    // dilate
+    mf_dilate(mv_temp, outputIm);
+
     return true;
 }
 
 //-------------------------------------------------
 // get closed input image
 //-------------------------------------------------
-bool swc_morphology::mf_close(const cv::Mat& inputIm, cv::Mat& outputIm) const{
-    cv::morphologyEx(inputIm, outputIm, cv::MORPH_CLOSE, mv_structuringElement);
+bool swc_morphology::mf_close(const cv::Mat& inputIm, cv::Mat& outputIm){
+
+    // binarize
+    mf_binarizeInputIm(inputIm);
+    cv::Mat mv_temp;
+
+    // dilate
+    mf_dilate(mv_inputImBinarized, mv_temp);
+
+    // erode
+    mf_erode(mv_temp, outputIm);
+
     return true;
 }

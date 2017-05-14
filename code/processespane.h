@@ -25,15 +25,15 @@
 //("Find contours of connected components");     //oneviewPcode 14
 //("Compute Histogram")                         //oneviewPcode 15
 enum{addSaltAndPepper = 0,
-    showLogo = 1,
-    convertToNewCspace = 2,
-    equalizeHistogram = 3,
+     showLogo = 1,
+     convertToNewCspace = 2,
+     equalizeHistogram = 3,
      dilate = 4,
      erode = 5,
-     open = 6,
-     close = 7,
-    showHistogram = 15,
-    identity = -100};
+     open_morph = 6,
+     close_morph = 7,
+     showHistogram = 15,
+     identity = -100};
 //----------------------------------------------------
 
 namespace Ui {

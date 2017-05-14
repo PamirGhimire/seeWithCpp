@@ -48,10 +48,10 @@ public:
     bool mf_erode(const cv::Mat& inputIm, cv::Mat& outputIm);
 
     // get opened input image
-    bool mf_open(const cv::Mat& inputIm, cv::Mat& outputIm) const;
+    bool mf_open(const cv::Mat& inputIm, cv::Mat& outputIm);
 
     // get closed input image
-    bool mf_close(const cv::Mat& inputIm, cv::Mat& outputIm) const;
+    bool mf_close(const cv::Mat& inputIm, cv::Mat& outputIm);
 
 };
 
