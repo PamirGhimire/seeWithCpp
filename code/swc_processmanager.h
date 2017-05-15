@@ -29,7 +29,7 @@ class swc_processManager
 {
 
 private:
-    // ove-view process codes
+    // one-view process codes
     enum{addSaltAndPepper = 0,
          showLogo = 1,
          convertToNewCspace = 2,
@@ -38,6 +38,11 @@ private:
          erode = 5,
          open_morph = 6,
          close_morph = 7,
+         blur = 8,
+         sobel = 9,
+         laplacian = 10,
+         customKernel = 11,
+         cannyedge = 12,
          showHistogram = 15,
          identity = -100};
 

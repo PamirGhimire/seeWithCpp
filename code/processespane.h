@@ -32,6 +32,11 @@ enum{addSaltAndPepper = 0,
      erode = 5,
      open_morph = 6,
      close_morph = 7,
+     blur = 8,
+     sobel = 9,
+     laplacian = 10,
+     customKernel = 11,
+     cannyedge = 12,
      showHistogram = 15,
      identity = -100};
 //----------------------------------------------------

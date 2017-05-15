@@ -13,6 +13,7 @@
 #include"swc_addlogo.h"
 #include "swc_computehistogram.h"
 #include "swc_morphology.h"
+#include "swc_kernelprocess.h"
 
 class swc_controller
 {
@@ -46,9 +47,13 @@ private:
     swc_morphology* mod_morphology;
 
     //------------------------------------------------------------
+    // Kernel model
+    //------------------------------------------------------------
+    swc_kernelProcess* mod_kernel;
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
-
 public:
     // Controller : Default constructor:
     swc_controller();
@@ -177,8 +182,63 @@ public:
 
 
     //------------------------------------------------------------
+    // Kernel model
+    //------------------------------------------------------------
+    // get lower threshold for canny
+    double kernel_getCannyLowerThresh() const;
+
+    // set lower threshold for canny
+    bool kernel_setCannyLowerThresh(const double lowerThresh);
+
+    // get upper threshold for canny
+    double kernel_getCannyUpperThresh() const;
+
+    // set upper threshold for canny
+    bool kernel_setCannyUpperThresh(const double upperThresh);
+
+    // get the current size of Gaussian kernel
+    int kernel_getGaussKernelSize() const;
+
+    // set the size of Gaussian kernel
+    bool kernel_setGaussKernelSize(int gsize);
+
+    // get the variance of Gaussian Kernel
+    int kernel_getGaussSigma() const;
+
+    // set the variance of Gaussian Kernel
+    bool kernel_setGaussSigma(int gSigma);
+
+    // returns current kernel
+    cv::Mat kernel_getKernel();
+
+    // set kernel for filtering
+    bool kernel_setKernel(const cv::Mat& kernel);
+
+    // blur image using gaussian smoothing
+    bool kernel_gaussianBlur();
+
+    // filter image using sobel operator
+    bool kernel_filterSobel();
+
+    // apply laplacian operator to the image
+    bool kernel_filterLaplacian();
+
+    // sharpen image using laplacian
+    bool kernel_filterLaplacianSharpen();
+
+    // apply a custom kernel
+    bool kernel_filterCustomKernel();
+
+    // detect edges using canny
+    bool kernel_filterCanny();
+
+    // apply median filter
+    bool kernel_filterMedian();
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
+
 };
 
 #endif // SWC_CONTROLLER_H

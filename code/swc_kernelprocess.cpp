@@ -8,8 +8,8 @@ swc_kernelProcess::swc_kernelProcess()
     // initialize member variables
 
     // initialize kernel as 3x3 identity transform
-    mv_kernel = cv::Mat(3, 3, CV_8UC1, cv::Scalar(0));
-    mv_kernel.at<uchar>(1, 1) = 1;
+    mv_kernel = cv::Mat(3, 3, CV_32F, cv::Scalar(0));
+    mv_kernel.at<float>(1, 1) = 1;
 
     // default gaussian kernel is 3x3
     mv_gaussKernelSize = 3;

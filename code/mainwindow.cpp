@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize the structuring element input window
     mw_selInput = new swc_structuringElementInput();
 
+    // Initialize the 3x3 kernel input window
+    mw_matrixInput = new swc_matrixInput();
+
     // Initialize default one-view process as identity transform
     mv_currentOneViewProcess = identity;
 
@@ -30,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_oneViewProcessesPane, SIGNAL(ms_applyButtonClicked()), this, SLOT(on_apply_in_processPane_clicked()) );
     connect(mw_oneViewProcessesPane, SIGNAL(ms_setDetailsButtonClicked()), this, SLOT(on_setDetails_in_processPane_clicked()) );
     connect(mw_selInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_selInput_clicked()) );
+    connect(mw_matrixInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_matrixInput_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -154,6 +158,14 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         break;
     }
     //----------------------------------------------------------
+    case customKernel:{
+        // display the input interface for 3x3 kernel input
+        mw_matrixInput->show();
+
+        // read the input, and make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+    }
+    //----------------------------------------------------------
     default:
         break;
     //----------------------------------------------------------
@@ -175,6 +187,17 @@ void MainWindow::on_ok_in_selInput_clicked()
     else if (mv_currentOneViewProcess == erode){
         processComm->sel_erosion = sel;
     }
+
+}
+//----------------------------------------------------------
+// Ok button in structuring element input window clicked: update structuring element
+//----------------------------------------------------------
+void MainWindow::on_ok_in_matrixInput_clicked(){
+
+    // get the kernel from the kernel input window
+    // update the kernel in the process communicator
+
+    processComm->customKernel = mw_matrixInput->mv_kernel;
 
 }
 

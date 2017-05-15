@@ -8,6 +8,7 @@
 #include"processespane.h"
 #include"swc_processcommunicator.h"
 #include"swc_structuringelementinput.h"
+#include"swc_matrixinput.h"
 #include<qdebug.h>
 
 //----------------------------------------------------
@@ -53,6 +54,8 @@ private slots:
 
     void on_ok_in_selInput_clicked();
 
+    void on_ok_in_matrixInput_clicked();
+
     void on_loadImage_clicked();
 
     void on_processImage_clicked();
@@ -68,6 +71,9 @@ private:
 
     // Member-window for setting structuring element (Morphological operations)
     swc_structuringElementInput* mw_selInput;
+
+    // Member-window for setting custom kernel for 2D filtering
+    swc_matrixInput* mw_matrixInput;
 
     // Interface to the controller
     swc_controller* controller;

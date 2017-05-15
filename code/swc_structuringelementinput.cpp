@@ -104,3 +104,10 @@ void swc_structuringElementInput::on_ok_clicked()
 
 }
 
+//---------------------------------------------------------
+// Pushbutton close
+//---------------------------------------------------------
+void swc_structuringElementInput::on_cancel_clicked()
+{
+    this->close();
+}

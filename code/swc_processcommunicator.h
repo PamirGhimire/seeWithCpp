@@ -46,6 +46,15 @@ public:
     // erosion
     cv::Mat sel_erosion;
 
+    // for kernel operations; custom kernel
+    cv::Mat customKernel;
+
+    // lower threshold for canny edge detector
+    int cannyLowerThresh;
+
+    // upper threshold for canny edge detector
+    int cannyUpperThresh;
+
 };
 
 #endif // SWC_PROCESSCOMMUNICATOR_H

@@ -23,6 +23,9 @@ swc_controller::swc_controller()
     // Morphology Model
     mod_morphology = new swc_morphology();
     //---------------------------------------------------------------------
+    // Kernel Model
+    mod_kernel =  new swc_kernelProcess();
+    //---------------------------------------------------------------------
 
 }
 
@@ -281,5 +284,148 @@ bool swc_controller::morphology_open() {
 // get closed input image
 bool swc_controller::morphology_close(){
     mod_morphology->mf_close(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// get lower threshold for canny
+double swc_controller::kernel_getCannyLowerThresh() const{
+    return mod_kernel->mf_getCannyLowerThresh();
+}
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// set lower threshold for canny
+bool swc_controller::kernel_setCannyLowerThresh(const double lowerThresh){
+    mod_kernel->mf_setCannyLowerThresh(lowerThresh);
+    return true;
+}
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// get upper threshold for canny
+double swc_controller::kernel_getCannyUpperThresh() const{
+    return mod_kernel->mf_getCannyUpperThresh();
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// set upper threshold for canny
+bool swc_controller::kernel_setCannyUpperThresh(const double upperThresh){
+    mod_kernel->mf_setCannyUpperThresh(upperThresh);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// get the current size of Gaussian kernel
+int swc_controller::kernel_getGaussKernelSize() const{
+    return mod_kernel->mf_getGaussKernelSize();
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// set the size of Gaussian kernel
+bool swc_controller::kernel_setGaussKernelSize(int gsize){
+    mod_kernel->mf_setGaussKernelSize(gsize);
+    return true;
+}
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// get the variance of Gaussian Kernel
+int swc_controller::kernel_getGaussSigma() const{
+    return mod_kernel->mf_getGaussSigma();
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// set the variance of Gaussian Kernel
+bool swc_controller::kernel_setGaussSigma(int gSigma){
+    mod_kernel->mf_setGaussSigma(gSigma);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// returns current kernel
+cv::Mat swc_controller::kernel_getKernel(){
+    return mod_kernel->mf_getKernel();
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// set kernel for filtering
+bool swc_controller::kernel_setKernel(const cv::Mat& kernel){
+    mod_kernel->mf_setKernel(kernel);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// blur image using gaussian smoothing
+bool swc_controller::kernel_gaussianBlur() {
+    mod_kernel->mf_gaussianBlur(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// filter image using sobel operator
+bool swc_controller::kernel_filterSobel(){
+    mod_kernel->mf_filterSobel(mv_inputim, mv_outputim);
+    return true;
+}
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// apply laplacian operator to the image
+bool swc_controller::kernel_filterLaplacian(){
+    mod_kernel->mf_filterLaplacian(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// sharpen image using laplacian
+bool swc_controller::kernel_filterLaplacianSharpen(){
+    mod_kernel->mf_filterLaplacianSharpen(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// apply a custom kernel
+bool swc_controller::kernel_filterCustomKernel(){
+    mod_kernel->mf_filterCustomKernel(mv_inputim, mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// detect edges using canny
+bool swc_controller::kernel_filterCanny(){
+    mod_kernel->mf_filterCanny(mv_inputim, mv_outputim);
+    return true;
+}
+//------------------------------------------------------------
+// Kernel model
+//------------------------------------------------------------
+// apply median filter
+bool swc_controller::kernel_filterMedian(){
+    mod_kernel->mf_filterMedian(mv_inputim, mv_outputim);
     return true;
 }
