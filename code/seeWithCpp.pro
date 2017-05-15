@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     swc_processcommunicator.cpp \
     swc_morphology.cpp \
     swc_matrixinput.cpp \
-    swc_structuringelementinput.cpp
+    swc_structuringelementinput.cpp \
+    swc_kernelprocess.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     swc_processcommunicator.h \
     swc_morphology.h \
     swc_matrixinput.h \
-    swc_structuringelementinput.h
+    swc_structuringelementinput.h \
+    swc_kernelprocess.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
