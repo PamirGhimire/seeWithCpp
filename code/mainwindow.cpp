@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize the 3x3 kernel input window
     mw_matrixInput = new swc_matrixInput();
 
+    // Initialize the two thresholds window
+    mw_settwothresholds = new swc_setTwoThresholds();
+
     // Initialize default one-view process as identity transform
     mv_currentOneViewProcess = identity;
 
@@ -34,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_oneViewProcessesPane, SIGNAL(ms_setDetailsButtonClicked()), this, SLOT(on_setDetails_in_processPane_clicked()) );
     connect(mw_selInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_selInput_clicked()) );
     connect(mw_matrixInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_matrixInput_clicked()) );
+    connect(mw_settwothresholds, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_settwothresholds_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -166,6 +170,13 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         // changes made through signals-slots mechanism
     }
     //----------------------------------------------------------
+    case cannyedge:{
+        // display the input interface for 2 thresholds input
+        mw_settwothresholds->show();
+
+        // read the two thresholds, make changes in the process-communicator object
+        // changes made through signals-slots mechanism
+    }
     default:
         break;
     //----------------------------------------------------------
@@ -199,6 +210,19 @@ void MainWindow::on_ok_in_matrixInput_clicked(){
 
     processComm->customKernel = mw_matrixInput->mv_kernel;
 
+}
+//----------------------------------------------------------
+// Ok button in 2 thresholds input window clicked:
+//----------------------------------------------------------
+void MainWindow::on_ok_in_settwothresholds_clicked(){
+
+    // if current process is canny edge detection
+    if(mv_currentOneViewProcess == cannyedge){
+        // get upper and lower thresholds from 2 thresholds window
+        // update the thresholds in process communicator
+        processComm->cannyLowerThresh = mw_settwothresholds->mv_lowerThresh;
+        processComm->cannyUpperThresh = mw_settwothresholds->mv_upperThresh;
+    }
 }
 
 //----------------------------------------------------------

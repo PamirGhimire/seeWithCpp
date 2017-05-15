@@ -9,6 +9,7 @@
 #include"swc_processcommunicator.h"
 #include"swc_structuringelementinput.h"
 #include"swc_matrixinput.h"
+#include"swc_settwothresholds.h"
 #include<qdebug.h>
 
 //----------------------------------------------------
@@ -56,6 +57,8 @@ private slots:
 
     void on_ok_in_matrixInput_clicked();
 
+    void on_ok_in_settwothresholds_clicked();
+
     void on_loadImage_clicked();
 
     void on_processImage_clicked();
@@ -74,6 +77,9 @@ private:
 
     // Member-window for setting custom kernel for 2D filtering
     swc_matrixInput* mw_matrixInput;
+
+    // Member-window for setting two thresholds
+    swc_setTwoThresholds* mw_settwothresholds;
 
     // Interface to the controller
     swc_controller* controller;

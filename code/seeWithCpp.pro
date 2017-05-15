@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     swc_morphology.cpp \
     swc_matrixinput.cpp \
     swc_structuringelementinput.cpp \
-    swc_kernelprocess.cpp
+    swc_kernelprocess.cpp \
+    swc_settwothresholds.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -37,12 +38,14 @@ HEADERS  += mainwindow.h \
     swc_morphology.h \
     swc_matrixinput.h \
     swc_structuringelementinput.h \
-    swc_kernelprocess.h
+    swc_kernelprocess.h \
+    swc_settwothresholds.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
     swc_matrixinput.ui \
-    swc_structuringelementinput.ui
+    swc_structuringelementinput.ui \
+    swc_settwothresholds.ui
 
 #-------------------------------------------------
 #OPEN-CV3.2:
