@@ -168,6 +168,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         // read the input, and make changes in the process-communicator object
         // changes made through signals-slots mechanism
+        break;
     }
     //----------------------------------------------------------
     case cannyedge:{
@@ -176,6 +177,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         // read the two thresholds, make changes in the process-communicator object
         // changes made through signals-slots mechanism
+        break;
     }
     default:
         break;
@@ -192,10 +194,10 @@ void MainWindow::on_ok_in_selInput_clicked()
     cv::Mat sel = mw_selInput->mf_getSel();
 
     // update the sel in process communicator
-    if (mv_currentOneViewProcess == dilate){
+    if (mv_currentOneViewProcess == dilate || mv_currentOneViewProcess == close_morph){
         processComm->sel_dilation = sel;
     }
-    else if (mv_currentOneViewProcess == erode){
+    else if (mv_currentOneViewProcess == erode || mv_currentOneViewProcess == open_morph){
         processComm->sel_erosion = sel;
     }
 
