@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     swc_matrixinput.cpp \
     swc_structuringelementinput.cpp \
     swc_kernelprocess.cpp \
-    swc_settwothresholds.cpp
+    swc_settwothresholds.cpp \
+    swc_structure.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     swc_matrixinput.h \
     swc_structuringelementinput.h \
     swc_kernelprocess.h \
-    swc_settwothresholds.h
+    swc_settwothresholds.h \
+    swc_structure.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
