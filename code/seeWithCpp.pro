@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     swc_structuringelementinput.cpp \
     swc_kernelprocess.cpp \
     swc_settwothresholds.cpp \
-    swc_structure.cpp
+    swc_structure.cpp \
+    swc_interestpoints.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -41,7 +42,8 @@ HEADERS  += mainwindow.h \
     swc_structuringelementinput.h \
     swc_kernelprocess.h \
     swc_settwothresholds.h \
-    swc_structure.h
+    swc_structure.h \
+    swc_interestpoints.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
