@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     swc_settwothresholds.cpp \
     swc_structure.cpp \
     swc_interestpoints.cpp \
-    swc_camcalib.cpp
+    swc_camcalib.cpp \
+    swc_stereogeometry.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     swc_settwothresholds.h \
     swc_structure.h \
     swc_interestpoints.h \
-    swc_camcalib.h
+    swc_camcalib.h \
+    swc_stereogeometry.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
@@ -57,11 +59,11 @@ FORMS    += mainwindow.ui \
 #OPEN-CV3.2:
 #-------------------------------------------------
 
-#INCLUDEPATH += "/usr/local/include/"
-#LIBS += `pkg-config --libs opencv`
+INCLUDEPATH += "/usr/local/include/"
+LIBS += `pkg-config --libs opencv`
 
 # Qmake instructions for Unix platforms only
-unix{
-    CONFIG += link_pkgconfig
-    PKGCONFIG += opencv
-}
+#unix{
+#    CONFIG += link_pkgconfig
+#    PKGCONFIG += opencv
+#}

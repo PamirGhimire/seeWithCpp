@@ -21,8 +21,64 @@ swc_interestPoints::swc_interestPoints()
     // FAST
     mv_fastDetector->create(40);
 
+    // SURF
+    mv_surfDetector->create(2500);
+    mv_surfDescEx->create(2500);
+
+    // SIFT
+    mv_siftDetector->create();
+    mv_siftDescEx->create();
+
 }
 
+//-----------------------------------------------------
+// detect sift keypoints
+//-----------------------------------------------------
+bool swc_interestPoints::mf_detectSiftKeypoints(const cv::Mat& inputim){
+    mv_siftDetector->detect(inputim, mv_siftKeypoints);
+    return true;
+}
+//-----------------------------------------------------
+// extract sift description at sift keypoints
+//-----------------------------------------------------
+bool swc_interestPoints::mf_extractSiftDescriptors(const cv::Mat& inputim){
+
+    // extract description
+    mv_siftDescEx->compute(inputim, mv_surfKeypoints, mv_siftDescriptors);
+
+    return true;
+}
+
+//-----------------------------------------------------
+// get sift keypoints
+//-----------------------------------------------------
+std::vector<cv::KeyPoint> swc_interestPoints::mf_getSiftKeypoints(){
+    return mv_siftKeypoints;
+}
+
+//-----------------------------------------------------
+// detect surf keypoints
+//-----------------------------------------------------
+bool swc_interestPoints::mf_detectSurfKeypoints(const cv::Mat& inputim){
+    mv_surfDetector->detect(inputim, mv_surfKeypoints);
+    return true;
+}
+//-----------------------------------------------------
+// extract surf description at surf keypoints
+//-----------------------------------------------------
+bool swc_interestPoints::mf_extractSurfDescriptors(const cv::Mat& inputim){
+
+    // extract description
+    mv_surfDescEx->compute(inputim, mv_surfKeypoints, mv_surfDescriptors);
+
+    return true;
+}
+//-----------------------------------------------------
+// get surf keypoints
+//-----------------------------------------------------
+std::vector<cv::KeyPoint> swc_interestPoints::mf_getSurfKeypoints(){
+    return mv_surfKeypoints;
+}
 
 //-----------------------------------------------------
 // detect fast keypoints
@@ -38,13 +94,26 @@ bool swc_interestPoints::mf_detectFastKeypoints(const cv::Mat& inputim){
 // detect fast keypoints on input, draw them on input, return in output
 //-----------------------------------------------------
 // draw detected fast keypoints
-bool swc_interestPoints::mf_drawFastKeypointsOnImage(const cv::Mat& inputim, cv::Mat& outputim){
+bool swc_interestPoints::mf_drawKeypointsOnImage(const cv::Mat& inputim, cv::Mat& outputim, int keyPointCode = 2){
 
-    // detect keypoints on inputim
-    mf_detectFastKeypoints(inputim);
+    // keyPointCode = 1 (fast), 2(surf), 3(sift)
+    std::vector<cv::KeyPoint> keyPoints;
+
+    switch (keyPointCode){
+        case 1:
+        keyPoints = mv_fastKeypoints;
+        break;
+    case 2:
+        keyPoints = mv_surfKeypoints;
+        break;
+    default:
+        keyPoints = mv_siftKeypoints;
+        break;
+    }
+
 
     cv::drawKeypoints(inputim,
-                      mv_fastKeypoints,
+                      keyPoints,
                       outputim,
                       cv::Scalar(255, 255, 255),
                       cv::DrawMatchesFlags::DRAW_OVER_OUTIMG);

@@ -4,7 +4,7 @@
 #include<opencv2/core/core.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 #include<opencv2/features2d/features2d.hpp>
-
+#include<opencv2/xfeatures2d/nonfree.hpp>
 
 class swc_interestPoints
 {
@@ -51,6 +51,7 @@ private:
     //----------------------------
     // FAST:
     //----------------------------
+    // fast detector
     cv::FastFeatureDetector* mv_fastDetector;
 
     // vector containing fast keypoints
@@ -59,18 +60,59 @@ private:
     //----------------------------
     // SURF:
     //----------------------------
+    // surf detector
+    cv::xfeatures2d::SurfFeatureDetector* mv_surfDetector;
 
+    // vector containing surf keypoints
+    std::vector<cv::KeyPoint> mv_surfKeypoints;
 
+    // surf descriptors
+    cv::xfeatures2d::SurfDescriptorExtractor* mv_surfDescEx;
+    cv::Mat mv_surfDescriptors;
+
+    //----------------------------
+    // SIFT:
+    //----------------------------
+    // sift detector
+    cv::xfeatures2d::SIFT* mv_siftDetector;
+
+    // vector containing sift keypoints
+    std::vector<cv::KeyPoint> mv_siftKeypoints;
+
+    // sift descriptors
+    cv::xfeatures2d::SiftDescriptorExtractor* mv_siftDescEx;
+    cv::Mat mv_siftDescriptors;
 
 public:
     // default constructor
     swc_interestPoints();
 
+    // detect sift keypoints
+    bool mf_detectSiftKeypoints(const cv::Mat& inputim);
+
+    // extract sift description at sift keypoints
+    bool mf_extractSiftDescriptors(const cv::Mat& inputim);
+
+    // get sift keypoints
+    std::vector<cv::KeyPoint> mf_getSiftKeypoints();
+
+    // detect surf keypoints
+    bool mf_detectSurfKeypoints(const cv::Mat& inputim);
+
+    // extract surf description at surf keypoints
+    bool mf_extractSurfDescriptors(const cv::Mat& inputim);
+
+    // get surf keypoints
+    std::vector<cv::KeyPoint> mf_getSurfKeypoints();
+
     // detect fast keypoints
     bool mf_detectFastKeypoints(const cv::Mat& inputim);
 
-    // draw detected fast keypoints
-    bool mf_drawFastKeypointsOnImage(const cv::Mat& inputim, cv::Mat& outputim);
+    // get fast keypoints
+    std::vector<cv::KeyPoint> mf_getFastKeypoints();
+
+    // draw detected keypoints, keyPointCode = 1 (fast), 2(surf), 3(sift)
+    bool mf_drawKeypointsOnImage(const cv::Mat& inputim, cv::Mat& outputim, int keyPointCode);
 
     // detect corner points in input, plot them in output
     void mf_drawHarrisCornersOnImage(const cv::Mat &inputim, cv::Mat& outputim);
