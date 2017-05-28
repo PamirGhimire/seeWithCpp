@@ -280,3 +280,10 @@ void MainWindow::on_processImage_clicked()
     processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
     mf_mainwindow_setdisplay();
 }
+//---------------------------------------------------------------------------------------
+// Close the main window
+//---------------------------------------------------------------------------------------
+void MainWindow::on_CloseMain_clicked()
+{
+    this->close();
+}

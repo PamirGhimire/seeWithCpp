@@ -63,6 +63,8 @@ private slots:
 
     void on_processImage_clicked();
 
+    void on_CloseMain_clicked();
+
 private:
     Ui::MainWindow *ui;
 

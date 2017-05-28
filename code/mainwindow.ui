@@ -705,7 +705,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Multi-View Pane</string>
+     <string>Camera Calibration Pane</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="currentOneviewProcess">
@@ -742,6 +742,19 @@
     </property>
     <property name="text">
      <string>Process</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CloseMain">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>180</y>
+      <width>80</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>
