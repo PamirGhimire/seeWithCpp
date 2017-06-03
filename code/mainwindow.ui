@@ -434,7 +434,7 @@
      <rect>
       <x>80</x>
       <y>30</y>
-      <width>480</width>
+      <width>500</width>
       <height>600</height>
      </rect>
     </property>
@@ -460,9 +460,9 @@
    <widget class="QLabel" name="outputWindow">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>650</x>
       <y>30</y>
-      <width>480</width>
+      <width>500</width>
       <height>600</height>
      </rect>
     </property>
@@ -675,7 +675,7 @@
    <widget class="QPushButton" name="processesPane">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>660</x>
       <y>660</y>
       <width>150</width>
       <height>35</height>

@@ -198,11 +198,14 @@ std::vector<std::vector<cv::Point>> swc_structure::mf_getContoursVec(){
 // draw bounding box
 //-------------------------------------------------------
 bool swc_structure::mf_drawBoundingBoxUsingContours(cv::Mat& outputim){
-    // draw bounding boxes
+
+    mf_drawContours(outputim);
+
     std::vector<std::vector<cv::Point>>::const_iterator itc = mv_contoursvec.begin();
 
+    // draw bounding boxes
     while (itc != mv_contoursvec.end()){
-        cv::Rect ri = cv::boundingRect(cv::Mat((*itc)[0]));
+        cv::Rect ri = cv::boundingRect(cv::Mat((*itc)));
         cv::rectangle(outputim,ri,cv::Scalar(0),2);
         itc++;
     }
@@ -214,6 +217,9 @@ bool swc_structure::mf_drawBoundingBoxUsingContours(cv::Mat& outputim){
 // draw minimum enclosing circle
 //-------------------------------------------------------
 bool swc_structure::mf_drawMinEnclosingCirclesUsingContours(cv::Mat& outputim){
+
+    mf_drawContours(outputim);
+
     // draw minimum enclosing circle
     std::vector<std::vector<cv::Point>>::const_iterator itc = mv_contoursvec.begin();
 
@@ -222,7 +228,7 @@ bool swc_structure::mf_drawMinEnclosingCirclesUsingContours(cv::Mat& outputim){
     cv::Point2f center;
 
     while (itc != mv_contoursvec.end()){
-        cv::minEnclosingCircle( cv::Mat((*itc)[0]), center, radius );
+        cv::minEnclosingCircle( cv::Mat((*itc)), center, radius );
 
         cv::circle(outputim,cv::Point(center),
                    static_cast<int>(radius),cv::Scalar(0),2);

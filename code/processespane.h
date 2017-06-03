@@ -23,7 +23,10 @@
 //("Detect Edges using Canny");  //oneviewPcode 12
 //("Extract lines and Circles using Hough");     //oneviewPcode 13
 //("Find contours of connected components");     //oneviewPcode 14
-//("Compute Histogram")                         //oneviewPcode 15
+//("Min. Enclosing Circle of Connected COmponents"); //oneviewPcode 15
+
+//("Compute Histogram");                         //oneviewPcode 16
+
 enum{addSaltAndPepper = 0,
      showLogo = 1,
      convertToNewCspace = 2,
@@ -40,7 +43,13 @@ enum{addSaltAndPepper = 0,
      houghlines = 13,
      houghcircles = 14,
      conCompContours = 15,
-     showHistogram = 16,
+     conCompMinEnCircle = 16,
+     conCompBoundingBoxes = 17,
+     harrisCorners = 18,
+     fastKeypoints = 19,
+     surfKeypoints = 20,
+     siftKeypoints = 21,
+     showHistogram = 22,
      identity = -100};
 
 //----------------------------------------------------

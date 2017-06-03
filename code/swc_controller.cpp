@@ -29,6 +29,8 @@ swc_controller::swc_controller()
     // Structure Model (hough lines, connected components)
     mod_structure = new swc_structure();
     //---------------------------------------------------------------------
+    // Interest Points model (harris, sift, surf)
+    mod_interestPoints = new swc_interestPoints();
 
 
 }
@@ -492,6 +494,7 @@ bool swc_controller::structure_drawContours(){
 //------------------------------------------------------------
 // draw bounding box
 bool swc_controller::structure_drawBoundingBoxUsingContours(){
+    mv_inputim.copyTo(mv_outputim, cv::Mat());
     mod_structure->mf_drawBoundingBoxUsingContours(mv_outputim);
     return true;
 }
@@ -500,6 +503,61 @@ bool swc_controller::structure_drawBoundingBoxUsingContours(){
 //------------------------------------------------------------
 // draw minimum enclosing circle
 bool swc_controller::structure_drawMinEnclosingCirclesUsingContours(){
+    mv_inputim.copyTo(mv_outputim);
     mod_structure->mf_drawMinEnclosingCirclesUsingContours(mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Interest Points Model
+//------------------------------------------------------------
+// detect corner points in input, plot them in output
+void swc_controller::interestPoints_drawHarrisCornersOnImage(){
+    mod_interestPoints->mf_drawHarrisCornersOnImage(mv_inputim, mv_outputim);
+}
+//------------------------------------------------------------
+// Interest Points Model
+//------------------------------------------------------------
+// draw detected keypoints, keyPointCode = 1 (fast), 2(surf), 3(sift)
+bool swc_controller::interestPoints_drawFastKeypoints(){
+    mv_inputim.copyTo(mv_outputim);
+    mod_interestPoints->mf_drawKeypointsOnImage(mv_inputim, mv_outputim, 1); //1 fast
+    return true;
+}
+
+bool swc_controller::interestPoints_drawSurftKeypoints(){
+    mv_inputim.copyTo(mv_outputim);
+    mod_interestPoints->mf_drawKeypointsOnImage(mv_inputim, mv_outputim, 2); //2 surf
+    return true;
+}
+
+bool swc_controller::interestPoints_drawSiftKeypoints(){
+    mv_inputim.copyTo(mv_outputim);
+    mod_interestPoints->mf_drawKeypointsOnImage(mv_inputim, mv_outputim, 1); //3 sift
+    return true;
+}
+//------------------------------------------------------------
+// Interest Points Model
+//------------------------------------------------------------
+// detect fast keypoints
+bool swc_controller::interestPoints_detectFastKeypoints(){
+    mod_interestPoints->mf_detectFastKeypoints(mv_inputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Interest Points Model
+//------------------------------------------------------------
+// detect surf keypoints
+bool swc_controller::interestPoints_detectSurfKeypoints(){
+    mod_interestPoints->mf_detectSurfKeypoints(mv_inputim);
+    return true;
+}
+//------------------------------------------------------------
+// Interest Points Model
+//------------------------------------------------------------
+// detect sift keypoints
+bool swc_controller::interestPoints_detectSiftKeypoints(){
+    mod_interestPoints->mf_detectSiftKeypoints(mv_inputim);
     return true;
 }

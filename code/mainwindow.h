@@ -102,8 +102,8 @@ private:
     QImage displayqim_in;
     QImage displayqim_out;
 
-    const int displayim_width = 480;
-    const int displayim_height = 600;
+    int displayim_width;
+    int displayim_height;
 
     // logoFlag is true if user has requested showing logo
     bool logoFlag;

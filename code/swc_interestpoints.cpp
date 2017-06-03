@@ -19,16 +19,15 @@ swc_interestPoints::swc_interestPoints()
     mv_qualityLevel = 0.85;
 
     // FAST
-    mv_fastDetector->create(40);
+    mv_fastDetector = cv::FastFeatureDetector::create(40);
 
     // SURF
-    mv_surfDetector->create(2500);
-    //mv_surfDetector = cv::xfeatures2d::SURF::create(2500);
-    mv_surfDescEx->create(2500);
+    mv_surfDetector = cv::xfeatures2d::SurfFeatureDetector::create(2500);
+    mv_surfDescEx = cv::xfeatures2d::SurfDescriptorExtractor::create();
 
     // SIFT
-    mv_siftDetector->create();
-    mv_siftDescEx->create();
+    mv_siftDetector = cv::xfeatures2d::SiftFeatureDetector::create();
+    mv_siftDescEx = cv::xfeatures2d::SiftDescriptorExtractor::create();
 
 }
 

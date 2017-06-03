@@ -47,7 +47,13 @@ private:
          houghlines = 13,
          houghcircles = 14,
          conCompContours = 15,
-         showHistogram = 16,
+         conCompMinEnCircle = 16,
+         conCompBoundingBoxes = 17,
+         harrisCorners = 18,
+         fastKeypoints = 19,
+         surfKeypoints = 20,
+         siftKeypoints = 21,
+         showHistogram = 22,
          identity = -100};
 
 public:

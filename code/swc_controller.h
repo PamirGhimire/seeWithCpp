@@ -15,6 +15,7 @@
 #include "swc_morphology.h"
 #include "swc_kernelprocess.h"
 #include "swc_structure.h"
+#include "swc_interestpoints.h"
 
 class swc_controller
 {
@@ -56,6 +57,11 @@ private:
     // Structure model (hough lines, connected components)
     //------------------------------------------------------------
     swc_structure* mod_structure;
+
+    //------------------------------------------------------------
+    // Interest Points model (harris, sift, surf)
+    //------------------------------------------------------------
+    swc_interestPoints* mod_interestPoints;
 
     //------------------------------------------------------------
     //
@@ -270,9 +276,28 @@ public:
     bool structure_drawMinEnclosingCirclesUsingContours();
 
     //------------------------------------------------------------
-    //
+    // Model : Interest Points
     //------------------------------------------------------------
+    // detect corner points in input, plot them in output
+    void interestPoints_drawHarrisCornersOnImage();
 
+    // draw detected keypoints, keyPointCode = 1 (fast), 2(surf), 3(sift)
+    bool interestPoints_drawFastKeypoints();
+    bool interestPoints_drawSurftKeypoints();
+    bool interestPoints_drawSiftKeypoints();
+
+    // detect fast keypoints
+    bool interestPoints_detectFastKeypoints();
+
+    // detect surf keypoints
+    bool interestPoints_detectSurfKeypoints();
+
+    // detect sift keypoints
+    bool interestPoints_detectSiftKeypoints();
+
+    //------------------------------------------------------------
+    // Model :
+    //------------------------------------------------------------
 };
 
 #endif // SWC_CONTROLLER_H

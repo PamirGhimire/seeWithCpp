@@ -81,8 +81,24 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
     case conCompContours:
         return "Connected Components";
         break;
-
-
+    case conCompMinEnCircle:
+        return "Min. Enclosing Circles of Shapes";
+        break;
+    case conCompBoundingBoxes:
+        return "Bounding Boxes of Shapes";
+        break;
+    case harrisCorners:
+        return "Harris Corners";
+        break;
+    case fastKeypoints:
+        return "Fast Keypoints";
+        break;
+    case surfKeypoints:
+        return "SURF Keypoints";
+        break;
+    case siftKeypoints:
+        return "SIFT Keypoints";
+        break;
     default:
         return "Not an active Process";
     }
@@ -191,25 +207,66 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
         controller->kernel_filterCanny();
         return true;
         //--------------------------------
-        // code 12: Probabilistic Hough Lines
+        // code 13: Probabilistic Hough Lines
         //--------------------------------
     case houghlines:
         controller->structure_findLines();
         controller->structure_drawHoughLinesP();
         return true;
         //--------------------------------
-        // code 12: Probabilistic Hough Circles
+        // code 14: Probabilistic Hough Circles
         //--------------------------------
     case houghcircles:
         controller->structure_findCircles();
         controller->structure_drawHoughCircles();
         return true;
         //--------------------------------
-        // code 12: connected components
+        // code 15: connected components
         //--------------------------------
     case conCompContours:
         controller->structure_findContours();
         controller->structure_drawContours();
+        return true;
+        //--------------------------------
+        // code 16: Min. Enclosing Circles of Connected Components
+        //--------------------------------
+    case conCompMinEnCircle:
+        controller->structure_findContours();
+        controller->structure_drawMinEnclosingCirclesUsingContours();
+        return true;
+        //--------------------------------
+        // code 17: Bounding boxes of Connected Components
+        //--------------------------------
+    case conCompBoundingBoxes:
+        controller->structure_findContours();
+        controller->structure_drawBoundingBoxUsingContours();
+        return true;
+        //--------------------------------
+        // code 18: Harris Corners
+        //--------------------------------
+    case harrisCorners:
+        controller->interestPoints_drawHarrisCornersOnImage();
+        return true;
+        //--------------------------------
+        // code 19: FAST Keypoints
+        //--------------------------------
+    case fastKeypoints:
+        controller->interestPoints_detectFastKeypoints();
+        controller->interestPoints_drawFastKeypoints();
+        return true;
+        //--------------------------------
+        // code 20: SURF Keypoints
+        //--------------------------------
+    case surfKeypoints:
+        controller->interestPoints_detectSurfKeypoints();
+        controller->interestPoints_drawSurftKeypoints();
+        return true;
+        //--------------------------------
+        // code 21: SIFT Keypoints
+        //--------------------------------
+    case siftKeypoints:
+        controller->interestPoints_detectSiftKeypoints();
+        controller->interestPoints_drawSiftKeypoints();
         return true;
         //--------------------------------
         // unrecognized code: do nothing

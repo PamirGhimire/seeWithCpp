@@ -52,7 +52,7 @@ private:
     // FAST:
     //----------------------------
     // fast detector
-    cv::FastFeatureDetector* mv_fastDetector;
+    cv::Ptr<cv::FastFeatureDetector> mv_fastDetector;
 
     // vector containing fast keypoints
     std::vector<cv::KeyPoint> mv_fastKeypoints;
@@ -61,28 +61,24 @@ private:
     // SURF:
     //----------------------------
     // surf detector
-    cv::xfeatures2d::SurfFeatureDetector* mv_surfDetector;
-    //cv::Ptr<cv::xfeatures2d::SURF> mv_surfDetector;
+    cv::Ptr<cv::xfeatures2d::SURF> mv_surfDetector;
 
     // vector containing surf keypoints
     std::vector<cv::KeyPoint> mv_surfKeypoints;
 
     // surf descriptors
-    cv::xfeatures2d::SurfDescriptorExtractor* mv_surfDescEx;
-    //cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> mv_surfDescEx;
+    cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> mv_surfDescEx;
     cv::Mat mv_surfDescriptors;
-
     //----------------------------
     // SIFT:
     //----------------------------
     // sift detector
-    cv::xfeatures2d::SIFT* mv_siftDetector;
-
+    cv::Ptr<cv::xfeatures2d::SiftFeatureDetector> mv_siftDetector;
     // vector containing sift keypoints
     std::vector<cv::KeyPoint> mv_siftKeypoints;
 
     // sift descriptors
-    cv::xfeatures2d::SiftDescriptorExtractor* mv_siftDescEx;
+    cv::Ptr<cv::xfeatures2d::SiftDescriptorExtractor> mv_siftDescEx;
     cv::Mat mv_siftDescriptors;
 
 public:

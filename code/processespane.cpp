@@ -29,6 +29,13 @@ processesPane::processesPane(QWidget *parent) :
     ui->i2iProcesses->addItem("Lines using P.Hough");     //oneviewPcode 13
     ui->i2iProcesses->addItem("Circles using P.Hough");   //oneviewPcode 14
     ui->i2iProcesses->addItem("Contours of connected components");     //oneviewPcode 15
+    ui->i2iProcesses->addItem("Min. Enclosing Circles of Shapes"); //oneviewPcode 16
+    ui->i2iProcesses->addItem("Bounding Boxes of shapes"); //oneviewPcode 17
+    ui->i2iProcesses->addItem("Harris Corners"); //oneviewPcode 18
+    ui->i2iProcesses->addItem("FAST Keypoints"); //oneviewPcode 19
+    ui->i2iProcesses->addItem("SURF Keypoints"); //oneviewPcode 20
+    ui->i2iProcesses->addItem("SIFT Keypoints"); //oneviewPcode 21
+
     //----------------------------------------------------
 
     //----------------------------------------------------

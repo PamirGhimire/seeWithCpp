@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    displayim_width = ui->inputWindow->width();
+    displayim_height = ui->inputWindow->height();
+
     // Initialize the process communicator
     processComm = new swc_processcommunicator();
 
