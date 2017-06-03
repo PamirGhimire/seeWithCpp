@@ -89,7 +89,7 @@ double swc_structure::mf_getDeltaTheta() const{
 //-------------------------------------------------------
 // draw estimated lines on the supplied image
 //-------------------------------------------------------
-bool swc_structure::mf_drawHoughLinesP(cv::Mat& outputim, cv::Scalar color=cv::Scalar(255,255,255)){
+bool swc_structure::mf_drawHoughLinesP(cv::Mat& outputim, cv::Scalar color){
 
     // Draw the lines
     std::vector<cv::Vec4i>::const_iterator it2=
@@ -123,7 +123,7 @@ bool swc_structure::mf_findCircles(const cv::Mat& inputim){
 //-------------------------------------------------------
 // draw estimated circles on the supplied image
 //-------------------------------------------------------
-bool swc_structure::mf_drawHoughCircles(cv::Mat& inputim, cv::Scalar color = cv::Scalar(255,255,255) ) {
+bool swc_structure::mf_drawHoughCircles(cv::Mat& inputim, cv::Scalar color) {
 
 
     std::vector<cv::Vec3f>::const_iterator itc= mv_circlesVec.begin();

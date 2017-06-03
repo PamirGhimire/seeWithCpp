@@ -21,13 +21,14 @@ processesPane::processesPane(QWidget *parent) :
     ui->i2iProcesses->addItem("Erode");         //oneviewPcode 5
     ui->i2iProcesses->addItem("Open");          //oneviewPcode 6
     ui->i2iProcesses->addItem("Close");         //oneviewPcode 7
-    ui->i2iProcesses->addItem("Blur");          //oneviewPcode 8
-    ui->i2iProcesses->addItem("Apply Sobel");   //oneviewPcode 9
-    ui->i2iProcesses->addItem("Apply Laplacian");           //oneviewPcode 10
+    ui->i2iProcesses->addItem("Gaussian Blur");          //oneviewPcode 8
+    ui->i2iProcesses->addItem("Sobel Edges");   //oneviewPcode 9
+    ui->i2iProcesses->addItem("Laplacian");           //oneviewPcode 10
     ui->i2iProcesses->addItem("Apply custom kernel");       //oneviewPcode 11
-    ui->i2iProcesses->addItem("Detect Edges using Canny");  //oneviewPcode 12
-    ui->i2iProcesses->addItem("Extract lines and Circles using Hough");     //oneviewPcode 13
-    ui->i2iProcesses->addItem("Find contours of connected components");     //oneviewPcode 14
+    ui->i2iProcesses->addItem("Edges using Canny");  //oneviewPcode 12
+    ui->i2iProcesses->addItem("Lines using P.Hough");     //oneviewPcode 13
+    ui->i2iProcesses->addItem("Circles using P.Hough");   //oneviewPcode 14
+    ui->i2iProcesses->addItem("Contours of connected components");     //oneviewPcode 15
     //----------------------------------------------------
 
     //----------------------------------------------------

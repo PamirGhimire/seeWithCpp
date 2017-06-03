@@ -62,12 +62,14 @@ private:
     //----------------------------
     // surf detector
     cv::xfeatures2d::SurfFeatureDetector* mv_surfDetector;
+    //cv::Ptr<cv::xfeatures2d::SURF> mv_surfDetector;
 
     // vector containing surf keypoints
     std::vector<cv::KeyPoint> mv_surfKeypoints;
 
     // surf descriptors
     cv::xfeatures2d::SurfDescriptorExtractor* mv_surfDescEx;
+    //cv::Ptr<cv::xfeatures2d::SurfDescriptorExtractor> mv_surfDescEx;
     cv::Mat mv_surfDescriptors;
 
     //----------------------------

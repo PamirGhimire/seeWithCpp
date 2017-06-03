@@ -61,10 +61,10 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
         return "Gaussian blur";
         break;
     case sobel:
-        return "Apply Sobel";
+        return "Sobel Edges";
         break;
     case laplacian:
-        return "Apply Laplacian";
+        return "Laplacian";
         break;
     case customKernel:
         return "Custom Kernel";
@@ -72,6 +72,16 @@ std::__cxx11::string swc_processManager::mf_getProcessName(int processcode)
     case cannyedge:
         return "Edges using Canny";
         break;
+    case houghlines:
+        return "Hough Lines";
+        break;
+    case houghcircles:
+        return "Hough Circles";
+        break;
+    case conCompContours:
+        return "Connected Components";
+        break;
+
 
     default:
         return "Not an active Process";
@@ -179,6 +189,27 @@ bool swc_processManager::mf_executeProcess(int processcode, swc_controller *cont
         controller->kernel_setCannyLowerThresh(processComm->cannyLowerThresh);
         controller->kernel_setCannyUpperThresh(processComm->cannyUpperThresh);
         controller->kernel_filterCanny();
+        return true;
+        //--------------------------------
+        // code 12: Probabilistic Hough Lines
+        //--------------------------------
+    case houghlines:
+        controller->structure_findLines();
+        controller->structure_drawHoughLinesP();
+        return true;
+        //--------------------------------
+        // code 12: Probabilistic Hough Circles
+        //--------------------------------
+    case houghcircles:
+        controller->structure_findCircles();
+        controller->structure_drawHoughCircles();
+        return true;
+        //--------------------------------
+        // code 12: connected components
+        //--------------------------------
+    case conCompContours:
+        controller->structure_findContours();
+        controller->structure_drawContours();
         return true;
         //--------------------------------
         // unrecognized code: do nothing

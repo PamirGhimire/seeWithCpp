@@ -61,9 +61,3 @@ FORMS    += mainwindow.ui \
 
 INCLUDEPATH += "/usr/local/include/"
 LIBS += `pkg-config --libs opencv`
-
-# Qmake instructions for Unix platforms only
-#unix{
-#    CONFIG += link_pkgconfig
-#    PKGCONFIG += opencv
-#}

@@ -26,6 +26,10 @@ swc_controller::swc_controller()
     // Kernel Model
     mod_kernel =  new swc_kernelProcess();
     //---------------------------------------------------------------------
+    // Structure Model (hough lines, connected components)
+    mod_structure = new swc_structure();
+    //---------------------------------------------------------------------
+
 
 }
 
@@ -427,5 +431,75 @@ bool swc_controller::kernel_filterCanny(){
 // apply median filter
 bool swc_controller::kernel_filterMedian(){
     mod_kernel->mf_filterMedian(mv_inputim, mv_outputim);
+    return true;
+}
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// find lines, the result of probabilistic hough transform
+bool swc_controller::structure_findLines(){
+    mod_structure->mf_findLines(mv_inputim);
+    return true;
+}
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// get circles using probabilistic hough transform
+bool swc_controller::structure_findCircles(){
+    mod_structure->mf_findCircles(mv_inputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// get contours of connected components
+bool swc_controller::structure_findContours(){
+    mod_structure->mf_findContours(mv_inputim);
+    return true;
+}
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// draw estimated lines on the supplied image
+bool swc_controller::structure_drawHoughLinesP(){
+    mv_inputim.copyTo(mv_outputim, cv::Mat());
+    mod_structure->mf_drawHoughLinesP(mv_outputim);
+    return true;
+}
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// draw estimated circles on the supplied image
+bool swc_controller::structure_drawHoughCircles(){
+    mv_inputim.copyTo(mv_outputim, cv::Mat());
+    mod_structure->mf_drawHoughCircles(mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// draw estimated contours on the supplied image
+bool swc_controller::structure_drawContours(){
+    mv_inputim.copyTo(mv_outputim, cv::Mat());
+    mod_structure->mf_drawContours(mv_outputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// draw bounding box
+bool swc_controller::structure_drawBoundingBoxUsingContours(){
+    mod_structure->mf_drawBoundingBoxUsingContours(mv_outputim);
+    return true;
+}
+//------------------------------------------------------------
+// Structure model
+//------------------------------------------------------------
+// draw minimum enclosing circle
+bool swc_controller::structure_drawMinEnclosingCirclesUsingContours(){
+    mod_structure->mf_drawMinEnclosingCirclesUsingContours(mv_outputim);
     return true;
 }

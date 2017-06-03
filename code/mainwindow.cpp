@@ -75,6 +75,7 @@ void MainWindow::on_apply_in_processPane_clicked()
         // tell the process manager to execute current process code
         processManager->mf_executeProcess(mv_currentOneViewProcess, controller, processComm);
     }
+
     // if not, the measurement is shown in a different window
     else{
 

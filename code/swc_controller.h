@@ -14,6 +14,7 @@
 #include "swc_computehistogram.h"
 #include "swc_morphology.h"
 #include "swc_kernelprocess.h"
+#include "swc_structure.h"
 
 class swc_controller
 {
@@ -50,6 +51,11 @@ private:
     // Kernel model
     //------------------------------------------------------------
     swc_kernelProcess* mod_kernel;
+
+    //------------------------------------------------------------
+    // Structure model (hough lines, connected components)
+    //------------------------------------------------------------
+    swc_structure* mod_structure;
 
     //------------------------------------------------------------
     //
@@ -234,6 +240,34 @@ public:
 
     // apply median filter
     bool kernel_filterMedian();
+
+    //------------------------------------------------------------
+    // Model : Structure (Hough lines and circles, connected components)
+    //------------------------------------------------------------
+
+    // get lines, the result of probabilistic hough transform
+    bool structure_findLines();
+
+    // get circles using probabilistic hough transform
+    bool structure_findCircles();
+
+    // get contours of connected components
+    bool structure_findContours();
+
+    // draw estimated lines on the supplied image
+    bool structure_drawHoughLinesP();
+
+    // draw estimated circles on the supplied image
+    bool structure_drawHoughCircles();
+
+    // draw estimated contours on the supplied image
+    bool structure_drawContours();
+
+    // draw bounding box
+    bool structure_drawBoundingBoxUsingContours();
+
+    // draw minimum enclosing circle
+    bool structure_drawMinEnclosingCirclesUsingContours();
 
     //------------------------------------------------------------
     //

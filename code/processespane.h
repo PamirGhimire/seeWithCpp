@@ -37,8 +37,12 @@ enum{addSaltAndPepper = 0,
      laplacian = 10,
      customKernel = 11,
      cannyedge = 12,
-     showHistogram = 15,
+     houghlines = 13,
+     houghcircles = 14,
+     conCompContours = 15,
+     showHistogram = 16,
      identity = -100};
+
 //----------------------------------------------------
 
 namespace Ui {

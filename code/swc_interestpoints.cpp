@@ -23,6 +23,7 @@ swc_interestPoints::swc_interestPoints()
 
     // SURF
     mv_surfDetector->create(2500);
+    //mv_surfDetector = cv::xfeatures2d::SURF::create(2500);
     mv_surfDescEx->create(2500);
 
     // SIFT
