@@ -2,7 +2,7 @@
 
 // default constructor
 swc_structure::swc_structure(): mv_deltaRho(1), mv_deltaTheta(PI/180),
-    mv_minVoteForLine(10), mv_minLengthForLine(0.), mv_maxGap(0.)
+    mv_minVoteForLine(17), mv_minLengthForLine(20.0), mv_maxGap(0.1)
 {
 
 }
@@ -45,12 +45,24 @@ bool swc_structure::mf_findLines(const cv::Mat& inputim) {
     // clear vector containing probabilistic hough lines
     mv_linesvec.clear();
 
-    // binarize the input image
-    cv::Mat binary_inputim;
-    cv::threshold(inputim, binary_inputim, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+    // Find Edges in the image:
+    // declare variables to contain intensity derivatives
+    cv::Mat sobelx, sobely, sobeledge;
 
-    // calculate hough lines
-    cv::HoughLinesP(binary_inputim, mv_linesvec, mv_deltaRho, mv_deltaTheta, mv_minVoteForLine, mv_minLengthForLine, mv_maxGap);
+    // compute derivatives
+    cv::Sobel(inputim, sobelx, CV_16SC1, 1, 0);
+    cv::Sobel(inputim, sobely, CV_16SC1, 0, 1);
+
+    // use l1 norm to approximate true derivative
+    sobeledge = cv::abs(sobelx) + cv::abs(sobely);
+    sobeledge.convertTo(sobeledge, CV_8UC1);
+
+    // binarize the edge image
+    cv::Mat binary_edgeim;
+    cv::threshold(sobeledge, binary_edgeim, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+
+    // calculate hough lines using edge image
+    cv::HoughLinesP(binary_edgeim, mv_linesvec, mv_deltaRho, mv_deltaTheta, mv_minVoteForLine, mv_minLengthForLine, mv_maxGap);
 
     // return the calculated lines
     return true;

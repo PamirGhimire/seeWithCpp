@@ -41,7 +41,8 @@ processesPane::processesPane(QWidget *parent) :
     //----------------------------------------------------
     // ADD IMAGE-TO-MEASUREMENT PROCESSES:
     //----------------------------------------------------
-    ui->i2mProcesses->addItem("Compute Histogram");
+    ui->i2mProcesses->addItem("Histogram of Input");
+    ui->i2mProcesses->addItem("Histogram of Output");
 }
 
 //---------------------------------------------------------------------
@@ -79,7 +80,7 @@ void processesPane::on_apply_clicked()
     if (ui->i2iProcesses->currentRow() >= 0){
         mv_currentOneViewProcess = ui->i2iProcesses->currentRow();
     }else{
-        mv_currentOneViewProcess = 15 + ui->i2mProcesses->currentRow();
+        mv_currentOneViewProcess = showHistogram + ui->i2mProcesses->currentRow();
     }
 
     qDebug()<< mv_currentOneViewProcess;

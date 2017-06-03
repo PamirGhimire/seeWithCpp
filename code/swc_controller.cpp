@@ -179,12 +179,18 @@ cv::Mat swc_controller::computeHistogram_process_computeHistogram(){
 // Module : Compute Histogram
 //---------------------------------------------------------------------
 // compute image bar graph of 1D histogram of input image
-cv::Mat swc_controller::computeHistogram_process_computeHistogramImage(){
+cv::Mat swc_controller::computeHistogram_computeHistogramInput(){
     cv::Mat histImage(300, 200, CV_8UC1);
     mod_computeHistogram->mf_computeHistogramImage(mv_inputim, histImage);
     return histImage;
 }
 
+// histogram of output
+cv::Mat swc_controller::computeHistogram_computeHistogramOutput(){
+    cv::Mat histImage(300, 200, CV_8UC1);
+    mod_computeHistogram->mf_computeHistogramImage(mv_outputim, histImage);
+    return histImage;
+}
 //---------------------------------------------------------------------
 // Module : Compute Histogram
 //---------------------------------------------------------------------
@@ -513,6 +519,7 @@ bool swc_controller::structure_drawMinEnclosingCirclesUsingContours(){
 //------------------------------------------------------------
 // detect corner points in input, plot them in output
 void swc_controller::interestPoints_drawHarrisCornersOnImage(){
+    mv_inputim.copyTo(mv_outputim);
     mod_interestPoints->mf_drawHarrisCornersOnImage(mv_inputim, mv_outputim);
 }
 //------------------------------------------------------------
@@ -533,7 +540,7 @@ bool swc_controller::interestPoints_drawSurftKeypoints(){
 
 bool swc_controller::interestPoints_drawSiftKeypoints(){
     mv_inputim.copyTo(mv_outputim);
-    mod_interestPoints->mf_drawKeypointsOnImage(mv_inputim, mv_outputim, 1); //3 sift
+    mod_interestPoints->mf_drawKeypointsOnImage(mv_inputim, mv_outputim, 3); //3 sift
     return true;
 }
 //------------------------------------------------------------

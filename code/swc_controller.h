@@ -140,8 +140,9 @@ public:
     // Returns histogram array of cv::Mat image
     cv::Mat computeHistogram_process_computeHistogram();
 
-    // compute image bar graph of 1D histogram of input image
-    cv::Mat computeHistogram_process_computeHistogramImage();
+    // compute image bar graph of 1D histogram of input/output image
+    cv::Mat computeHistogram_computeHistogramInput();
+    cv::Mat computeHistogram_computeHistogramOutput();
 
     // get number of histogram bins
     int computeHistogram_getnHistBins();

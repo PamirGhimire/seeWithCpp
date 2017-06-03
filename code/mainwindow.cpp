@@ -83,16 +83,26 @@ void MainWindow::on_apply_in_processPane_clicked()
     else{
 
         switch(mv_currentOneViewProcess){
+
         // measurement = histogram of input image
         case showHistogram:{
-            qDebug() << "asked to show histogram";
+            qDebug() << "asked to show histogram of input";
             // tell controller to show histogram
-            cv::Mat histImage = controller->computeHistogram_process_computeHistogramImage();
+            cv::Mat histImage = controller->computeHistogram_computeHistogramInput();
             cv::namedWindow("Histogram of Input Image");
             cv::imshow("Histogram of Input Image", histImage);
             cv::waitKey(0);
         }
 
+            // measurement = histogram of output image
+        case showHistogramOut:{
+            qDebug() << "asked to show histogram of output";
+            // tell controller to show histogram
+            cv::Mat histImage = controller->computeHistogram_computeHistogramOutput();
+            cv::namedWindow("Histogram of output Image");
+            cv::imshow("Histogram of Output Image", histImage);
+            cv::waitKey(0);
+        }
 
         }
     }

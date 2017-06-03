@@ -50,6 +50,7 @@ enum{addSaltAndPepper = 0,
      surfKeypoints = 20,
      siftKeypoints = 21,
      showHistogram = 22,
+     showHistogramOut = 23,
      identity = -100};
 
 //----------------------------------------------------

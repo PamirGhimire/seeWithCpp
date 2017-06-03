@@ -61,7 +61,7 @@ public:
     bool mf_findContours(const cv::Mat inputim);
 
     // draw estimated lines on the supplied image
-    bool mf_drawHoughLinesP(cv::Mat &outputim, cv::Scalar color = cv::Scalar(255,255,255) );
+    bool mf_drawHoughLinesP(cv::Mat &outputim, cv::Scalar color = cv::Scalar(0,0,255) );
 
     // draw estimated circles on the supplied image
     bool mf_drawHoughCircles(cv::Mat& outputim, cv::Scalar color = cv::Scalar(255,255,255) );

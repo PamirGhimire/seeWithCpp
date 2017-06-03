@@ -10,13 +10,13 @@ swc_interestPoints::swc_interestPoints()
     mv_harrisApertureSize = 3;
 
     // harris parameter
-    mv_harrisParameter = 0.2;
+    mv_harrisParameter = 0.04;
 
     // harris corner map threshold
-    mv_harrisCornerThreshold = 0.001;
+    mv_harrisCornerThreshold = 0.01;
 
     // picking threshold for corner strength map
-    mv_qualityLevel = 0.85;
+    mv_qualityLevel = 0.30;
 
     // FAST
     mv_fastDetector = cv::FastFeatureDetector::create(40);
@@ -100,12 +100,15 @@ bool swc_interestPoints::mf_drawKeypointsOnImage(const cv::Mat& inputim, cv::Mat
     std::vector<cv::KeyPoint> keyPoints;
 
     switch (keyPointCode){
-        case 1:
+
+    case 1:
         keyPoints = mv_fastKeypoints;
         break;
-    case 2:
+
+    case 2:{
         keyPoints = mv_surfKeypoints;
         break;
+}
     default:
         keyPoints = mv_siftKeypoints;
         break;
@@ -134,7 +137,7 @@ void swc_interestPoints::mf_drawHarrisCornersOnImage(const cv::Mat &inputim, cv:
     mf_computeCornerPoints();
 
     // draw harris corners
-    cv::Scalar color= cv::Scalar(255,255,255);
+    cv::Scalar color= cv::Scalar(255,0,0);
     int radius = 3;
     int thickness = 2;
 
@@ -149,6 +152,7 @@ void swc_interestPoints::mf_drawHarrisCornersOnImage(const cv::Mat &inputim, cv:
         cv::circle(outputim,*it,radius,color,thickness);
         ++it;
     }
+
 }
 
 //-----------------------------------------------------

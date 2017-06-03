@@ -74,6 +74,7 @@ private:
     //----------------------------
     // sift detector
     cv::Ptr<cv::xfeatures2d::SiftFeatureDetector> mv_siftDetector;
+
     // vector containing sift keypoints
     std::vector<cv::KeyPoint> mv_siftKeypoints;
 
