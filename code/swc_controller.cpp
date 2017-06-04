@@ -37,6 +37,10 @@ swc_controller::swc_controller()
     //---------------------------------------------------------------------
     // Interest Points model (harris, sift, surf)
     mod_interestPoints = new swc_interestPoints();
+    //---------------------------------------------------------------------
+    // Image matching model
+    mod_matchImages = new swc_matchImages();
+    //---------------------------------------------------------------------
 
 
 }
@@ -615,5 +619,18 @@ bool swc_controller::interestPoints_detectSurfKeypoints(){
 // detect sift keypoints
 bool swc_controller::interestPoints_detectSiftKeypoints(){
     mod_interestPoints->mf_detectSiftKeypoints(mv_inputim);
+    return true;
+}
+
+//------------------------------------------------------------
+// Model : match images
+//------------------------------------------------------------
+// match im1 and im2, descriptor = 1(sift) or 2(surf)
+bool swc_controller::matchImages_drawMatchesBwIm1and2(int descriptor){
+    mod_matchImages->mf_drawMatchesBwIm1and2(mv_im1, mv_im2, mv_matchesIm1and2, descriptor);
+
+    cv::namedWindow("matches");
+    cv::imshow("matches", mv_matchesIm1and2);
+
     return true;
 }

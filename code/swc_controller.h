@@ -16,6 +16,7 @@
 #include "swc_kernelprocess.h"
 #include "swc_structure.h"
 #include "swc_interestpoints.h"
+#include"swc_matchimages.h"
 
 class swc_controller
 {
@@ -32,6 +33,7 @@ private:
     // for point matching between 2 images, im1 and im2
     cv::Mat mv_im1;
     cv::Mat mv_im2;
+    cv::Mat mv_matchesIm1and2;
 
     //------------------------------------------------------------
     // MODELS:
@@ -69,6 +71,11 @@ private:
     // Interest Points model (harris, sift, surf)
     //------------------------------------------------------------
     swc_interestPoints* mod_interestPoints;
+
+    //------------------------------------------------------------
+    // Image matching model
+    //------------------------------------------------------------
+    swc_matchImages* mod_matchImages;
 
     //------------------------------------------------------------
     //
@@ -308,6 +315,13 @@ public:
 
     // detect sift keypoints
     bool interestPoints_detectSiftKeypoints();
+
+    //------------------------------------------------------------
+    // Model : match images
+    //------------------------------------------------------------
+
+    // match im1 and im2, descriptor = 1(sift) or 2(surf)
+    bool matchImages_drawMatchesBwIm1and2(int descriptor = 1);
 
     //------------------------------------------------------------
     // Model :

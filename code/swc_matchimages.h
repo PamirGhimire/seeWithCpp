@@ -2,6 +2,7 @@
 #define SWC_MATCHIMAGES_H
 
 #include<opencv2/core/core.hpp>
+#include<opencv2/features2d/features2d.hpp>
 #include<opencv2/xfeatures2d/nonfree.hpp>
 
 class swc_matchImages
@@ -20,6 +21,9 @@ private:
 
     // sift descriptor
     cv::Ptr<cv::xfeatures2d::SiftDescriptorExtractor> mv_siftDescEx;
+
+    // brute force matcher
+    cv::BFMatcher mv_matcher;
 
 
 public:
