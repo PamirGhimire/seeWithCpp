@@ -23,8 +23,15 @@ class swc_controller
 private:
 
     // Internal Variables:
+
+    // Input and output images for one-view processes
     cv::Mat mv_inputim;
     cv::Mat mv_outputim;
+
+    // Input and output images for multi-view processes
+    // for point matching between 2 images, im1 and im2
+    cv::Mat mv_im1;
+    cv::Mat mv_im2;
 
     //------------------------------------------------------------
     // MODELS:
@@ -82,6 +89,12 @@ public:
 
     // Get the current input image
     cv::Mat mf_getInputImage() const;
+
+    // Set im1 (for matching between im1 and im2)
+    bool mf_setIm1(std::string filename);
+
+    // Set im2 (for matching between im1 and im2)
+    bool mf_setIm2(std::string filename);
 
     // Get the current output image (latest result of processing)
     cv::Mat mf_getOutputImage() const;

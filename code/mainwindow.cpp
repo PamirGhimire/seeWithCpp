@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize the processes pane
     mw_oneViewProcessesPane = new processesPane();
 
+    // Initialize multi-view and geometry pane
+    mw_multiviewPane = new multiviewPane();
+
     // Initialize the structuring element input window
     mw_selInput = new swc_structuringElementInput();
 
@@ -41,6 +44,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_selInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_selInput_clicked()) );
     connect(mw_matrixInput, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_matrixInput_clicked()) );
     connect(mw_settwothresholds, SIGNAL(ms_ok_clicked()), this, SLOT(on_ok_in_settwothresholds_clicked()) );
+    //----------------------------------------------------------
+
+    //----------------------------------------------------------
+    // Connecting multiview and geometry pane signals with mainwindow slots:
+    //----------------------------------------------------------
+    connect(mw_multiviewPane, SIGNAL(ms_setIm1_clicked()), this, SLOT(on_setIm1_in_multiviewPane_clicked()) );
+    connect(mw_multiviewPane, SIGNAL(ms_setIm2_clicked()), this, SLOT(on_setIm2_in_multiviewPane_clicked()) );
+    connect(mw_multiviewPane, SIGNAL(ms_im12Match_clicked()), this, SLOT(on_matchIm12_in_multiviewPane_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -295,9 +306,41 @@ void MainWindow::on_processImage_clicked()
     mf_mainwindow_setdisplay();
 }
 //---------------------------------------------------------------------------------------
-// Close the main window
+// Close the main window (button display name = exit)
 //---------------------------------------------------------------------------------------
 void MainWindow::on_CloseMain_clicked()
 {
     this->close();
+    delete ui;
+}
+
+//---------------------------------------------------------------------------------------
+// Multi-view and Geometry Pane
+//---------------------------------------------------------------------------------------
+void MainWindow::on_multiviewPane_clicked()
+{
+    // show the multiview and geometry pane
+    mw_multiviewPane->show();
+}
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_setIm1_in_multiviewPane_clicked(){
+    std::string im1name = mw_multiviewPane->mv_im1name.toStdString();
+    controller->mf_setIm1(im1name);
+}
+
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_setIm2_in_multiviewPane_clicked(){
+    std::string im2name = mw_multiviewPane->mv_im2name.toStdString();
+    controller->mf_setIm2(im2name);
+}
+
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_matchIm12_in_multiviewPane_clicked(){
+
 }

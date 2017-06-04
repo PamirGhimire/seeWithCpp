@@ -6,8 +6,14 @@
 swc_controller::swc_controller()
 {
     // Initialize controller member variables
+
+    // I/O images for one-view processes
     mv_inputim = cv::Mat(640, 480, CV_8UC1, cv::Scalar(200));
     mv_inputim.copyTo(mv_outputim);
+
+    // I/O images for multi-view processes
+    mv_im1 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(0));
+    mv_im2 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(0));
 
     // Initialize pointers to different models:
     //---------------------------------------------------------------------
@@ -65,6 +71,49 @@ bool swc_controller::mf_setInputImage(std::string filename)
         qDebug() << "Loaded selected image";
         return true;
     }
+}
+//---------------------------------------------------------------------
+// Set im1 (for matching between im1 and im2)
+//---------------------------------------------------------------------
+bool swc_controller::mf_setIm1(std::string filename){
+
+    cv::Mat im1 = cv::imread(filename, 0);
+
+    // reallocate mv_im1 so that it is of same size and type as the read image
+    mv_im1.create(im1.size(), im1.type());
+    im1.copyTo(mv_im1);
+
+    // return false if the image was not loaded
+    if (!mv_im1.data){
+        qDebug() << "failed loading image";
+        return false;
+    }else{
+        qDebug() << "Loaded selected image";
+        return true;
+    }
+    return true;
+}
+
+//---------------------------------------------------------------------
+// Set im2 (for matching between im1 and im2)
+//---------------------------------------------------------------------
+bool swc_controller::mf_setIm2(std::string filename){
+    cv::Mat im2 = cv::imread(filename, 0);
+
+    // reallocate mv_im1 so that it is of same size and type as the read image
+    mv_im2.create(im2.size(), im2.type());
+    im2.copyTo(mv_im2);
+
+    // return false if the image was not loaded
+    if (!mv_im2.data){
+        qDebug() << "failed loading image";
+        return false;
+    }else{
+        qDebug() << "Loaded selected image";
+        return true;
+    }
+
+    return true;
 }
 
 //---------------------------------------------------------------------

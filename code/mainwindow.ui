@@ -693,9 +693,9 @@
    <widget class="QPushButton" name="multiviewPane">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>379</x>
       <y>660</y>
-      <width>150</width>
+      <width>181</width>
       <height>35</height>
      </rect>
     </property>
@@ -705,7 +705,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Camera Calibration Pane</string>
+     <string>Multi-View and Geometry Pane</string>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="currentOneviewProcess">

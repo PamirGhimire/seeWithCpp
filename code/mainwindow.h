@@ -6,6 +6,7 @@
 #include"swc_controller.h"
 #include"swc_processmanager.h"
 #include"processespane.h"
+#include"multiviewpane.h"
 #include"swc_processcommunicator.h"
 #include"swc_structuringelementinput.h"
 #include"swc_matrixinput.h"
@@ -47,23 +48,39 @@ public:
     ~MainWindow();
 
 private slots:
+    // Main-window slots
     void on_processesPane_clicked();
-
-    void on_apply_in_processPane_clicked();
-
-    void on_setDetails_in_processPane_clicked();
-
-    void on_ok_in_selInput_clicked();
-
-    void on_ok_in_matrixInput_clicked();
-
-    void on_ok_in_settwothresholds_clicked();
 
     void on_loadImage_clicked();
 
     void on_processImage_clicked();
 
     void on_CloseMain_clicked();
+
+    void on_multiviewPane_clicked();
+
+
+    // one-view process pane slots
+    void on_apply_in_processPane_clicked();
+
+    void on_setDetails_in_processPane_clicked();
+
+
+    // multi-view and geometry pane slots
+    void on_setIm1_in_multiviewPane_clicked();
+
+    void on_setIm2_in_multiviewPane_clicked();
+
+    void on_matchIm12_in_multiviewPane_clicked();
+
+
+    // input ui for structuring element (morphology)
+    void on_ok_in_selInput_clicked();
+    // input ui for 3x3 kernel (im convolutions)
+    void on_ok_in_matrixInput_clicked();
+    // input ui for canny edge (needs 2 thresholds)
+    void on_ok_in_settwothresholds_clicked();
+
 
 private:
     Ui::MainWindow *ui;
@@ -73,6 +90,9 @@ private:
 
     // Member-window containing one-view processes
     processesPane* mw_oneViewProcessesPane;
+
+    // Member-window containing multi-view and camera geometry processes
+    multiviewPane* mw_multiviewPane;
 
     // Member-window for setting structuring element (Morphological operations)
     swc_structuringElementInput* mw_selInput;

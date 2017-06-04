@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     swc_structure.cpp \
     swc_interestpoints.cpp \
     swc_camcalib.cpp \
-    swc_stereogeometry.cpp
+    swc_stereogeometry.cpp \
+    multiviewpane.cpp \
+    swc_matchimages.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -47,13 +49,16 @@ HEADERS  += mainwindow.h \
     swc_structure.h \
     swc_interestpoints.h \
     swc_camcalib.h \
-    swc_stereogeometry.h
+    swc_stereogeometry.h \
+    multiviewpane.h \
+    swc_matchimages.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
     swc_matrixinput.ui \
     swc_structuringelementinput.ui \
-    swc_settwothresholds.ui
+    swc_settwothresholds.ui \
+    multiviewpane.ui
 
 #-------------------------------------------------
 #OPEN-CV3.2:
