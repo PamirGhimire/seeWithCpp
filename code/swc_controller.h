@@ -106,6 +106,9 @@ public:
     // Get the current output image (latest result of processing)
     cv::Mat mf_getOutputImage() const;
 
+    // get the current output of matching
+    cv::Mat mf_getMatchIm1and2();
+
 
     //------------------------------------------------------------
     // MODELS:

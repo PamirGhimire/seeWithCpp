@@ -342,5 +342,11 @@ void MainWindow::on_setIm2_in_multiviewPane_clicked(){
 // multi-view and geometry pane slots
 //---------------------------------------------------------------------------------------
 void MainWindow::on_matchIm12_in_multiviewPane_clicked(){
-    controller->matchImages_drawMatchesBwIm1and2();
+    // compute matches
+    controller->matchImages_drawMatchesBwIm1and2(mw_multiviewPane->mv_descriptor);
+
+    // show result of matching in the multiview window
+    mw_multiviewPane->mv_displayim = controller->mf_getMatchIm1and2();
+    mw_multiviewPane->mf_showDisplayim();
+
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>672</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="okbutton">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>440</y>
+     <x>480</x>
+     <y>520</y>
      <width>80</width>
      <height>22</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="closebutton">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>440</y>
+     <x>570</x>
+     <y>520</y>
      <width>80</width>
      <height>22</height>
     </rect>
@@ -75,7 +75,7 @@
     <string>Set Image 2</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="matchImagesInfo">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -91,7 +91,7 @@
   <widget class="QPushButton" name="match">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>130</x>
      <y>70</y>
      <width>80</width>
      <height>22</height>
@@ -104,6 +104,29 @@
    </property>
    <property name="text">
     <string>Match</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="Descriptor">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="MultiviewDisplay">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>640</width>
+     <height>400</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

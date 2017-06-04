@@ -693,9 +693,9 @@
    <widget class="QPushButton" name="multiviewPane">
     <property name="geometry">
      <rect>
-      <x>379</x>
+      <x>410</x>
       <y>660</y>
-      <width>181</width>
+      <width>150</width>
       <height>35</height>
      </rect>
     </property>

@@ -4,6 +4,10 @@
 #include <QWidget>
 #include<qstring.h>
 #include<qfiledialog.h>
+#include<qdebug.h>
+
+#include <opencv2/core/core.hpp>
+#include<opencv2/imgproc/imgproc.hpp>
 
 namespace Ui {
 class multiviewPane;
@@ -23,6 +27,8 @@ private slots:
     void on_setim2_clicked();
 
     void on_match_clicked();
+
+    void on_okbutton_clicked();
 
 private:
     Ui::multiviewPane *ui;
@@ -47,6 +53,16 @@ public:
 
     // filename for im2
     QString mv_im2name;
+
+    // choice of descriptor
+    int mv_descriptor;
+
+    // result of matching
+    cv::Mat mv_displayim;
+
+    // show result of matching
+    void mf_showDisplayim();
+    QImage mv_displayqim;
 };
 
 #endif // MULTIVIEWPANE_H

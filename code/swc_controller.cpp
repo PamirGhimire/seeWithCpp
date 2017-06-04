@@ -12,8 +12,9 @@ swc_controller::swc_controller()
     mv_inputim.copyTo(mv_outputim);
 
     // I/O images for multi-view processes
-    mv_im1 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(0));
-    mv_im2 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(0));
+    mv_im1 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(255));
+    mv_im2 = cv::Mat(500, 500, CV_8UC1, cv::Scalar(255));
+    mv_matchesIm1and2 = cv::Mat(600, 320, CV_8UC1, cv::Scalar(255));
 
     // Initialize pointers to different models:
     //---------------------------------------------------------------------
@@ -134,6 +135,13 @@ cv::Mat swc_controller::mf_getInputImage() const
 cv::Mat swc_controller::mf_getOutputImage() const
 {
     return mv_outputim;
+}
+
+//---------------------------------------------------------------------
+// get the current output of matching
+//---------------------------------------------------------------------
+cv::Mat swc_controller::mf_getMatchIm1and2(){
+    return mv_matchesIm1and2;
 }
 
 
@@ -627,10 +635,7 @@ bool swc_controller::interestPoints_detectSiftKeypoints(){
 //------------------------------------------------------------
 // match im1 and im2, descriptor = 1(sift) or 2(surf)
 bool swc_controller::matchImages_drawMatchesBwIm1and2(int descriptor){
+
     mod_matchImages->mf_drawMatchesBwIm1and2(mv_im1, mv_im2, mv_matchesIm1and2, descriptor);
-
-    cv::namedWindow("matches");
-    cv::imshow("matches", mv_matchesIm1and2);
-
     return true;
 }

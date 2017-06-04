@@ -81,7 +81,6 @@ private slots:
     // input ui for canny edge (needs 2 thresholds)
     void on_ok_in_settwothresholds_clicked();
 
-
 private:
     Ui::MainWindow *ui;
 
