@@ -53,7 +53,6 @@ public:
     // set list of file names of images to use for calibration
     bool mf_setFileList(const std::vector<std::string>& fileList);
 
-
     // open chessboard images and extract corner points
     int mf_addChessboardPoints();
 

@@ -11,7 +11,7 @@ multiviewPane::multiviewPane(QWidget *parent) :
     ui->setupUi(this);
 
     // set default descriptor as sift
-    mv_descriptor = 2;
+    mv_descriptor = 1;
 
     ui->Descriptor->addItem("SIFT");
     ui->Descriptor->addItem("SURF");
@@ -58,8 +58,10 @@ void multiviewPane::on_setim1_clicked()
         if (!mv_im2name.data()->isNull()){
             ui->match->setEnabled(true);
             ui->fundamentalMat->setEnabled(true);
+
         }
 
+        ui->multiviewOp->setText(mv_im1name);
         // signal (mainwindow -> controller) to load the fileName bearing image into mv_im1
         emit ms_setIm1_clicked();
     }
@@ -80,8 +82,10 @@ void multiviewPane::on_setim2_clicked()
         if (!mv_im1name.data()->isNull()){
             ui->match->setEnabled(true);
             ui->fundamentalMat->setEnabled(true);
+
         }
 
+        ui->multiviewOp->setText(mv_im2name);
         // signal (mainwindow -> controller) to load the fileName bearing image into mv_im1
         emit ms_setIm2_clicked();
     }
@@ -92,6 +96,7 @@ void multiviewPane::on_setim2_clicked()
 //---------------------------------------------
 void multiviewPane::on_match_clicked()
 {
+    ui->multiviewOp->setText("Point Correspondences");
     mv_descriptor = 1 + ui->Descriptor->currentIndex();
     emit ms_im12Match_clicked();
 }
@@ -125,5 +130,14 @@ void multiviewPane::on_okbutton_clicked()
 //---------------------------------------------
 void multiviewPane::on_fundamentalMat_clicked()
 {
+    ui->multiviewOp->setText("Fundamental Matrix and Epipolar Lines");
     emit ms_fundamentalMat_clicked();
+}
+
+//---------------------------------------------
+// Descriptor selector dropdown
+//---------------------------------------------
+void multiviewPane::on_Descriptor_activated(const QString &arg1)
+{
+    mv_descriptor = 1 + ui->Descriptor->currentIndex();
 }

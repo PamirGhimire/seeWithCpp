@@ -2,6 +2,7 @@
 #define SWC_MATCHIMAGES_H
 
 #include<opencv2/core/core.hpp>
+#include<opencv2/imgproc/imgproc.hpp>
 #include<opencv2/features2d/features2d.hpp>
 #include<opencv2/xfeatures2d/nonfree.hpp>
 #include<opencv2/calib3d/calib3d.hpp>
@@ -33,6 +34,9 @@ private:
     std::vector<cv::KeyPoint> mv_im1kps;
     std::vector<cv::KeyPoint> mv_im2kps;
 
+    // fundamental matrix
+    cv::Mat mv_funmat12;
+
 
 
 public:
@@ -46,6 +50,10 @@ public:
 
     // draw matches between im1 and im2
     bool mf_drawMatchesBwIm1and2(const cv::Mat& im1, const cv::Mat& im2, cv::Mat& outputim, int descriptor = 1);
+
+    // draw epipolar lines in im1 and im2 using the estimated fundamental mat
+    bool mf_drawEpipolarLinesIm1and2(const cv::Mat& im1, const cv::Mat& im2, cv::Mat& outputim);
+
 };
 
 #endif // SWC_MATCHIMAGES_H

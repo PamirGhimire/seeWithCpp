@@ -664,7 +664,15 @@ bool swc_controller::matchImages_findFundamentalIm1and2(cv::Mat& outfunmat12, in
 
     return true;
 }
-
+//------------------------------------------------------------
+// Model : match images
+//------------------------------------------------------------
+// draw epipolar lines in im1 and im2 using the estimated fundamental mat
+bool swc_controller::matchImages_drawEpipolarLinesIm1and2(cv::Mat& outputim){
+    // draw epipolar lines
+    mod_matchImages->mf_drawEpipolarLinesIm1and2(mv_im1, mv_im2, outputim);
+    return true;
+}
 
 //------------------------------------------------------------
 // Model : match images

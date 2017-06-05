@@ -374,6 +374,7 @@ void MainWindow::on_matchIm12_in_multiviewPane_clicked(){
 void MainWindow::on_fundamentalMat_in_multiviewPane_clicked(){
     // get fundamental matrix
     cv::Mat funmat;
+    //qDebug() << "selected descriptor = " << mw_multiviewPane->mv_descriptor;
     controller->matchImages_findFundamentalIm1and2(funmat, mw_multiviewPane->mv_descriptor);
 
     // display fundamental matrix
@@ -381,6 +382,13 @@ void MainWindow::on_fundamentalMat_in_multiviewPane_clicked(){
     mw_matrixOutput->mv_mat = funmat;
     mw_matrixOutput->mf_displayMvmat();
 
+    cv::Mat epilinesImage;
+    controller->matchImages_drawEpipolarLinesIm1and2(epilinesImage);
+
+    // show result of matching in the multiview window
+    cv::cvtColor(epilinesImage, epilinesImage, cv::COLOR_GRAY2RGB);
+    mw_multiviewPane->mv_displayim = epilinesImage;
+    mw_multiviewPane->mf_showDisplayim();
 
 }
 

@@ -32,6 +32,8 @@ private slots:
 
     void on_fundamentalMat_clicked();
 
+    void on_Descriptor_activated(const QString &arg1);
+
 private:
     Ui::multiviewPane *ui;
 

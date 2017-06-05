@@ -32,7 +32,7 @@ bool swc_matchImages::mf_matchImage1and2(const cv::Mat& im1, const cv::Mat& im2,
     // keypoints and descriptors for im2
     cv::Mat im2descs;
 
-    if (descriptor == 1){ // surf
+    if (descriptor == 2){ // surf
 
         // extract keypoints and descriptors from image 1
         mv_surfDetector->detect(im1, mv_im1kps);
@@ -95,12 +95,78 @@ bool swc_matchImages::mf_findFundamentalIm1and2(cv::Mat& outfunmat12){
         // query the right image
         imgpts2.push_back(mv_im2kps[mv_matches_Im12[i].trainIdx].pt);
 
-        outfunmat12 = cv::findFundamentalMat(imgpts1,imgpts2,cv::FM_RANSAC,0.1,0.99);
 
     }
 
+    mv_funmat12 = cv::findFundamentalMat(imgpts1,imgpts2,cv::FM_RANSAC,0.1,0.99);
+    outfunmat12 = mv_funmat12;
     return true;
 }
+//----------------------------------------------------------
+// draw epipolar lines in im1 and im2 using the estimated fundamental mat
+//----------------------------------------------------------
+bool swc_matchImages::mf_drawEpipolarLinesIm1and2(const cv::Mat& im1, const cv::Mat& im2, cv::Mat& outputim){
 
+    // Convert keypoints into Point2f
+    std::vector<cv::Point2f> selPoints1, selPoints2;
+    std::vector<int> pointIndexes1 = {1, 2, 3, 4, 5};
+    std::vector<int> pointIndexes2 = {1, 2, 3, 4, 5};
+
+    cv::KeyPoint::convert(mv_im1kps,selPoints1,pointIndexes1);
+    cv::KeyPoint::convert(mv_im2kps,selPoints2,pointIndexes2);
+
+    // Initialize images for drawing epipolar lines
+    cv::Mat im2_el; im2.copyTo(im2_el, cv::Mat());
+    cv::Mat im1_el; im1.copyTo(im1_el, cv::Mat());
+    outputim.create(im1.cols + im2.cols, im1.rows + im2.rows, im1.type());
+
+
+    // left points lines in right = lines1
+    std::vector<cv::Vec3f> lines1;
+
+    cv::computeCorrespondEpilines(
+                cv::Mat(selPoints1), // image points
+                1,                   // in image 1 (can also be 2)
+                mv_funmat12,         // F matrix
+                lines1);             // vector of epipolar lines
+
+    // right points lines in left = lines2
+    std::vector<cv::Vec3f> lines2;
+    cv::computeCorrespondEpilines(
+                cv::Mat(selPoints2), // image points
+                2,                   // in image 2 (can also be 1)
+                mv_funmat12,         // F matrix
+                lines2);             // vector of epipolar lines
+
+
+    // for all epipolar lines (in right image)
+    for (std::vector<cv::Vec3f>::const_iterator it= lines1.begin();
+         it!=lines1.end(); ++it) {
+
+        // draw the line between first and last column
+        cv::line(im2_el,
+                 cv::Point(0,-(*it)[2]/(*it)[1]),
+                cv::Point(im2_el.cols,-((*it)[2]+
+                          (*it)[0]*im2_el.cols)/(*it)[1]),
+                cv::Scalar(255,255,255));
+    }
+
+
+    // for all epipolar lines (in left image)
+    for (std::vector<cv::Vec3f>::const_iterator it= lines2.begin();
+         it!=lines2.end(); ++it) {
+
+        // draw the line between first and last column
+        cv::line(im1_el,
+                 cv::Point(0,-(*it)[2]/(*it)[1]),
+                cv::Point(im1_el.cols,-((*it)[2]+
+                          (*it)[0]*im1_el.cols)/(*it)[1]),
+                cv::Scalar(255,255,255));
+    }
+
+    cv::hconcat(im1_el, im2_el, outputim);
+
+    return true;
+}
 
 

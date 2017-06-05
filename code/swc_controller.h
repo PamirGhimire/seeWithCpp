@@ -340,6 +340,9 @@ public:
     // match im1 and im2, descriptor = 1(sift) or 2(surf)
     bool matchImages_drawMatchesBwIm1and2(int descriptor = 1);
 
+    // draw epipolar lines in im1 and im2 using the estimated fundamental mat
+    bool matchImages_drawEpipolarLinesIm1and2(cv::Mat& outputim);
+
     //------------------------------------------------------------
     // Model : Estimate fundamental matrix and epipolar lines
     //------------------------------------------------------------
