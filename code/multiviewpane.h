@@ -30,6 +30,8 @@ private slots:
 
     void on_okbutton_clicked();
 
+    void on_fundamentalMat_clicked();
+
 private:
     Ui::multiviewPane *ui;
 
@@ -42,6 +44,9 @@ signals:
 
     // signal for matching
     void ms_im12Match_clicked();
+
+    // signal for fundamental matrix computation
+    void ms_fundamentalMat_clicked();
 
 
 public:

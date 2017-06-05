@@ -432,7 +432,7 @@
    <widget class="QLabel" name="inputWindow">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>100</x>
       <y>30</y>
       <width>500</width>
       <height>600</height>
@@ -571,7 +571,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Cam Video</string>
+     <string>Cam  &gt;   ||</string>
     </property>
    </widget>
    <widget class="QPushButton" name="saveImage">
@@ -693,9 +693,9 @@
    <widget class="QPushButton" name="multiviewPane">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>379</x>
       <y>660</y>
-      <width>150</width>
+      <width>181</width>
       <height>35</height>
      </rect>
     </property>

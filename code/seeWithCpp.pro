@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     swc_camcalib.cpp \
     swc_stereogeometry.cpp \
     multiviewpane.cpp \
-    swc_matchimages.cpp
+    swc_matchimages.cpp \
+    swc_matrixoutput.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -51,14 +52,16 @@ HEADERS  += mainwindow.h \
     swc_camcalib.h \
     swc_stereogeometry.h \
     multiviewpane.h \
-    swc_matchimages.h
+    swc_matchimages.h \
+    swc_matrixoutput.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
     swc_matrixinput.ui \
     swc_structuringelementinput.ui \
     swc_settwothresholds.ui \
-    multiviewpane.ui
+    multiviewpane.ui \
+    swc_matrixoutput.ui
 
 #-------------------------------------------------
 #OPEN-CV3.2:

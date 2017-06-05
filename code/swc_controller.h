@@ -17,6 +17,7 @@
 #include "swc_structure.h"
 #include "swc_interestpoints.h"
 #include"swc_matchimages.h"
+#include "swc_stereogeometry.h"
 
 class swc_controller
 {
@@ -78,6 +79,11 @@ private:
     swc_matchImages* mod_matchImages;
 
     //------------------------------------------------------------
+    // Stereo geometry model (fundamental matrix, epipolar lines)
+    //------------------------------------------------------------
+    swc_stereoGeometry* mod_stereoGeo;
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
 public:
@@ -90,6 +96,9 @@ public:
     //------------------------------------------------------------
     // Controller:
     //------------------------------------------------------------
+
+    // Set mv_inputim
+    bool mf_setMvInputim(const cv::Mat& inputim);
 
     // Set input image;
     bool mf_setInputImage(std::string filename);
@@ -322,9 +331,23 @@ public:
     //------------------------------------------------------------
     // Model : match images
     //------------------------------------------------------------
+    // match im1 and im2, descriptor = 1(sift) or 2(surf)
+    bool matchImages_matchImage1and2(int descriptor = 1);
+
+    // find fundamental matrix between im1 and im2
+    bool matchImages_findFundamentalIm1and2(cv::Mat& outfunmat12, int descriptor = 1);
 
     // match im1 and im2, descriptor = 1(sift) or 2(surf)
     bool matchImages_drawMatchesBwIm1and2(int descriptor = 1);
+
+    //------------------------------------------------------------
+    // Model : Estimate fundamental matrix and epipolar lines
+    //------------------------------------------------------------
+    // estimates fundamental matrix from point correspondences type cv::keypoint
+    cv::Mat stereoGeo_getFundamentalMatrix(int mflag = 8);
+
+    // draw epipolar lines, if imindex == 1, selPoints come from left image
+    bool stereoGeo_drawEpipolarLines(int imindex = 2);
 
     //------------------------------------------------------------
     // Model :

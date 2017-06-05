@@ -42,6 +42,9 @@ swc_controller::swc_controller()
     // Image matching model
     mod_matchImages = new swc_matchImages();
     //---------------------------------------------------------------------
+    // Stereo-Geomtery model
+    mod_stereoGeo = new swc_stereoGeometry();
+    //---------------------------------------------------------------------
 
 
 }
@@ -58,6 +61,15 @@ swc_controller::~swc_controller()
 
 //---------------------------------------------------------------------
 // Controller : set input image
+//---------------------------------------------------------------------
+// Set mv_inputim
+bool swc_controller::mf_setMvInputim(const cv::Mat& inputim){
+    mv_inputim = inputim;
+    return true;
+}
+
+//---------------------------------------------------------------------
+// Controller : set input image by reading image from disk
 //---------------------------------------------------------------------
 bool swc_controller::mf_setInputImage(std::string filename)
 {
@@ -629,6 +641,30 @@ bool swc_controller::interestPoints_detectSiftKeypoints(){
     mod_interestPoints->mf_detectSiftKeypoints(mv_inputim);
     return true;
 }
+
+//------------------------------------------------------------
+// Model : match images
+//------------------------------------------------------------
+// match im1 and im2, descriptor = 1(sift) or 2(surf)
+bool swc_controller::matchImages_matchImage1and2(int descriptor ){
+    mod_matchImages->mf_matchImage1and2(mv_im1, mv_im2, descriptor);
+    return true;
+}
+
+//------------------------------------------------------------
+// Model : match images
+//------------------------------------------------------------
+// find fundamental matrix between im1 and im2
+bool swc_controller::matchImages_findFundamentalIm1and2(cv::Mat& outfunmat12, int descriptor){
+    // find matches between im1 and im2
+    mod_matchImages->mf_matchImage1and2(mv_im1, mv_im2, descriptor);
+
+    // find the fundamental matrix using matches
+    mod_matchImages->mf_findFundamentalIm1and2(outfunmat12);
+
+    return true;
+}
+
 
 //------------------------------------------------------------
 // Model : match images

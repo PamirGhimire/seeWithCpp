@@ -18,6 +18,7 @@ multiviewPane::multiviewPane(QWidget *parent) :
 
     // match can not be clicked without selecting images
     ui->match->setEnabled(false);
+    ui->fundamentalMat->setEnabled(false);
 
     mv_displayim = cv::Mat(500, 500, CV_32F, cv::Scalar(255, 200, 240));
     mf_showDisplayim();
@@ -56,6 +57,7 @@ void multiviewPane::on_setim1_clicked()
         // enable match button if a file was selected for second image as well
         if (!mv_im2name.data()->isNull()){
             ui->match->setEnabled(true);
+            ui->fundamentalMat->setEnabled(true);
         }
 
         // signal (mainwindow -> controller) to load the fileName bearing image into mv_im1
@@ -77,6 +79,7 @@ void multiviewPane::on_setim2_clicked()
         // enable match button if a file was selected for first image as well
         if (!mv_im1name.data()->isNull()){
             ui->match->setEnabled(true);
+            ui->fundamentalMat->setEnabled(true);
         }
 
         // signal (mainwindow -> controller) to load the fileName bearing image into mv_im1
@@ -115,4 +118,12 @@ void multiviewPane::mf_showDisplayim(){
 void multiviewPane::on_okbutton_clicked()
 {
     this->close();
+}
+
+//---------------------------------------------
+// Fundamental Matrix button
+//---------------------------------------------
+void multiviewPane::on_fundamentalMat_clicked()
+{
+    emit ms_fundamentalMat_clicked();
 }

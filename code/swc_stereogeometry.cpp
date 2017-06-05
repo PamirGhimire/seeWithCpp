@@ -33,7 +33,7 @@ bool swc_stereoGeometry::mf_setFMethodFlag(int mflag){
 // estimates fundamental matrix from 7 matches, takes type cv::keypoint
 //------------------------------------------
 cv::Mat swc_stereoGeometry::mf_getFundamentalMatrix(const std::vector<cv::Point2f>& selPoints1, const std::vector<cv::Point2f>& selPoints2){
-    // Compute F matrix from 7 matches
+    // Compute F matrix from 7/8 matches
     cv::Mat fundamental= cv::findFundamentalMat(
                 cv::Mat(selPoints1), // points in first image
                 cv::Mat(selPoints2), // points in second image

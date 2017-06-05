@@ -10,7 +10,13 @@
 #include"swc_processcommunicator.h"
 #include"swc_structuringelementinput.h"
 #include"swc_matrixinput.h"
+#include"swc_matrixoutput.h"
 #include"swc_settwothresholds.h"
+
+#include<opencv2/core/core.hpp>
+#include<opencv2/imgproc/imgproc.hpp>
+#include<opencv2/video/video.hpp>
+
 #include<qdebug.h>
 
 //----------------------------------------------------
@@ -59,6 +65,14 @@ private slots:
 
     void on_multiviewPane_clicked();
 
+    void on_camVideo_clicked();
+
+    void on_camSnap_clicked();
+
+    void on_playVideo_clicked();
+
+    void on_pauseVideo_clicked();
+
 
     // one-view process pane slots
     void on_apply_in_processPane_clicked();
@@ -73,6 +87,7 @@ private slots:
 
     void on_matchIm12_in_multiviewPane_clicked();
 
+    void on_fundamentalMat_in_multiviewPane_clicked();
 
     // input ui for structuring element (morphology)
     void on_ok_in_selInput_clicked();
@@ -87,6 +102,12 @@ private:
     // Current one-view-process code
     int mv_currentOneViewProcess;
 
+    // camera device (md : member device)
+    cv::VideoCapture* md_cam;
+
+    // process-video flag
+    bool mv_processVideoFlag;
+
     // Member-window containing one-view processes
     processesPane* mw_oneViewProcessesPane;
 
@@ -98,6 +119,9 @@ private:
 
     // Member-window for setting custom kernel for 2D filtering
     swc_matrixInput* mw_matrixInput;
+
+    // Member-window for displaying 3x3 matrix
+    swc_matrixOutput* mw_matrixOutput;
 
     // Member-window for setting two thresholds
     swc_setTwoThresholds* mw_settwothresholds;

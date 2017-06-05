@@ -9,6 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
     displayim_width = ui->inputWindow->width();
     displayim_height = ui->inputWindow->height();
 
+    // Initialize camera device
+    md_cam = new cv::VideoCapture();
+    md_cam->open(0);
+
+    // Initialize process video flag as false
+    mv_processVideoFlag = false;
+
     // Initialize the process communicator
     processComm = new swc_processcommunicator();
 
@@ -29,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Initialize the 3x3 kernel input window
     mw_matrixInput = new swc_matrixInput();
+
+    // Initialize the 3x3 matrix output window
+    mw_matrixOutput = new swc_matrixOutput();
 
     // Initialize the two thresholds window
     mw_settwothresholds = new swc_setTwoThresholds();
@@ -52,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_multiviewPane, SIGNAL(ms_setIm1_clicked()), this, SLOT(on_setIm1_in_multiviewPane_clicked()) );
     connect(mw_multiviewPane, SIGNAL(ms_setIm2_clicked()), this, SLOT(on_setIm2_in_multiviewPane_clicked()) );
     connect(mw_multiviewPane, SIGNAL(ms_im12Match_clicked()), this, SLOT(on_matchIm12_in_multiviewPane_clicked()) );
+    connect(mw_multiviewPane, SIGNAL(ms_fundamentalMat_clicked()), this, SLOT(on_fundamentalMat_in_multiviewPane_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -79,6 +90,9 @@ void MainWindow::on_apply_in_processPane_clicked()
 {
     // update code for current one view process
     mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
+
+    // change process-video flag to true
+    mv_processVideoFlag = true;
 
     // the process manager is called only if the current process is an image-to-image process
     if (mv_currentOneViewProcess < showHistogram){
@@ -120,6 +134,9 @@ void MainWindow::on_apply_in_processPane_clicked()
 
     // update display
     mf_mainwindow_setdisplay();
+
+    // set output of process as input for next
+    //controller->mf_setMvInputim(controller->mf_getOutputImage());
 }
 
 //----------------------------------------------------------
@@ -132,7 +149,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
     case addSaltAndPepper:
         // get details for salt and pepper noise
         break;
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case showLogo:{
         // get the logo filename
         QString logo_fileName = QFileDialog::getOpenFileName(this, tr("Select Logo"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
@@ -145,7 +162,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         break;
     }
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case dilate:{
         // display the input interface for structuring element
         mw_selInput->show();
@@ -156,7 +173,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         break;
 
     }
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case erode:{
         // display the input interface for structuring element
         mw_selInput->show();
@@ -166,7 +183,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         break;
     }
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case open_morph:{
         // display the input interface for structuring element
         mw_selInput->show();
@@ -176,8 +193,8 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         break;
     }
-    //----------------------------------------------------------
-       case close_morph:{
+        //----------------------------------------------------------
+    case close_morph:{
         // display the input interface for structuring element
         mw_selInput->show();
 
@@ -186,7 +203,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
 
         break;
     }
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case customKernel:{
         // display the input interface for 3x3 kernel input
         mw_matrixInput->show();
@@ -195,7 +212,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
         // changes made through signals-slots mechanism
         break;
     }
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     case cannyedge:{
         // display the input interface for 2 thresholds input
         mw_settwothresholds->show();
@@ -206,7 +223,7 @@ void MainWindow::on_setDetails_in_processPane_clicked()
     }
     default:
         break;
-    //----------------------------------------------------------
+        //----------------------------------------------------------
     }
 }
 
@@ -264,11 +281,11 @@ void MainWindow::on_loadImage_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "../../../", tr("Image Files(*.png *.jpg *jpeg *.bmp)") );
 
     if (!fileName.data()->isNull()){
-    // ask controller to load the fileName bearing image
-    controller->mf_setInputImage(fileName.toStdString());
+        // ask controller to load the fileName bearing image
+        controller->mf_setInputImage(fileName.toStdString());
 
-    // update display
-    mf_mainwindow_setdisplay();
+        // update display
+        mf_mainwindow_setdisplay();
     }
 }
 
@@ -349,4 +366,73 @@ void MainWindow::on_matchIm12_in_multiviewPane_clicked(){
     mw_multiviewPane->mv_displayim = controller->mf_getMatchIm1and2();
     mw_multiviewPane->mf_showDisplayim();
 
+}
+
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_fundamentalMat_in_multiviewPane_clicked(){
+    // get fundamental matrix
+    cv::Mat funmat;
+    controller->matchImages_findFundamentalIm1and2(funmat, mw_multiviewPane->mv_descriptor);
+
+    // display fundamental matrix
+    mw_matrixOutput->mv_matname = "Fundamental Matrix";
+    mw_matrixOutput->mv_mat = funmat;
+    mw_matrixOutput->mf_displayMvmat();
+
+
+}
+
+//---------------------------------------------------------------------------------------
+// Video stream from attached camera (start - stop)
+//---------------------------------------------------------------------------------------
+void MainWindow::on_camVideo_clicked()
+{
+    // signal to video-capture thread to start or stop capturing (= updating inputim container in controller)
+
+    // if processVideo flag is true, process the grabbed frame
+}
+
+//---------------------------------------------------------------------------------------
+// grab a frame from camera (index 0)
+//---------------------------------------------------------------------------------------
+void MainWindow::on_camSnap_clicked()
+{
+    if(!md_cam->isOpened()){
+        md_cam->open(0);
+    }
+
+    cv::Mat frame;
+
+    for (int ntrial = 0; ntrial < 5; ntrial++){
+        md_cam->read(frame);
+        // if reading succesful, stop trying
+        if (!frame.empty()){
+            break;
+        }
+    }
+
+    cv::cvtColor(frame, frame, cv::COLOR_RGB2GRAY);
+    controller->mf_setMvInputim(frame);
+
+    mf_mainwindow_setdisplay();
+    md_cam->release();
+
+}
+
+//---------------------------------------------------------------------------------------
+// play video button (change process-video flag to true)
+//---------------------------------------------------------------------------------------
+void MainWindow::on_playVideo_clicked()
+{
+    mv_processVideoFlag =  true;
+}
+
+//---------------------------------------------------------------------------------------
+// pause video button (change process-video flag to false)
+//---------------------------------------------------------------------------------------
+void MainWindow::on_pauseVideo_clicked()
+{
+    mv_processVideoFlag = false;
 }
