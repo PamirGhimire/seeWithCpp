@@ -80,21 +80,22 @@ int swc_camCalib::mf_addChessboardPoints(){
         // Get the chessboard corners
         bool found = cv::findChessboardCorners(
                     cbimage, mv_boardSize, imageCorners);
+        if (found){
+            // Get subpixel accuracy on the corners
+            cv::cornerSubPix(cbimage, imageCorners,
+                             cv::Size(5,5),
+                             cv::Size(-1,-1),
+                             cv::TermCriteria(cv::TermCriteria::MAX_ITER +
+                                              cv::TermCriteria::EPS,
+                                              30,  // max number of iterations
+                                              0.1)); // min accuracy
 
-//        // Get subpixel accuracy on the corners
-//        cv::cornerSubPix(cbimage, imageCorners,
-//                         cv::Size(5,5),
-//                         cv::Size(-1,-1),
-//                         cv::TermCriteria(cv::TermCriteria::MAX_ITER +
-//                                          cv::TermCriteria::EPS,
-//                                          30,  // max number of iterations
-//                                          0.1)); // min accuracy
-
-        //If we have a good board, add it to our data
-        if (imageCorners.size() == mv_boardSize.area()) {
-            // Add image and scene points from one view
-            mf_addPoints(imageCorners, objectCorners);
-            successes++;
+            //If we have a good board, add it to our data
+            if (imageCorners.size() == mv_boardSize.area()) {
+                // Add image and scene points from one view
+                mf_addPoints(imageCorners, objectCorners);
+                successes++;
+            }
         }
     }
 
@@ -128,13 +129,13 @@ double swc_camCalib::mf_calibrate(){
 
     // start calibration
     return
-    cv::calibrateCamera(mv_objectPoints, // the 3D points
-                    mv_imagePoints, // the image points
-                    mv_inputimSize, // image size
-                    mv_cameraMatrix, // output camera matrix
-                    mv_distCoeffs, // output distortion matrix
-                    rvecs, tvecs, // Rs, Ts
-                    mv_flag); // set options
+            cv::calibrateCamera(mv_objectPoints, // the 3D points
+                                mv_imagePoints, // the image points
+                                mv_inputimSize, // image size
+                                mv_cameraMatrix, // output camera matrix
+                                mv_distCoeffs, // output distortion matrix
+                                rvecs, tvecs, // Rs, Ts
+                                mv_flag); // set options
 
 }
 
