@@ -33,13 +33,19 @@ class swc_camCalib
     // list of file names of images to use for calibration
     std::vector<std::string> mv_fileList;
 
-    // size of the chessboard in images
+    // size of the chessboard in images (arbitrary units)
     cv::Size mv_boardSize;
+
+    // size of chessboard images
+    cv::Size mv_inputimSize;
 
 
 public:
     // default constructor
     swc_camCalib();
+
+    // get camera matrix
+    cv::Mat mf_getCamMatrix();
 
     // get boardSize
     cv::Size mf_getBoardSize();
@@ -60,7 +66,7 @@ public:
     void mf_addPoints(const std::vector<cv::Point2f> & imageCorners, const std::vector<cv::Point3f>& objectCorners);
 
     // calibrates camera, returns re-projection error
-    double mf_calibrate(cv::Size &inputimSize);
+    double mf_calibrate();
 
     // removes distortion in an image given corresponding camera matrix
     bool mf_remap(const cv::Mat &inputim, cv::Mat &outputim);

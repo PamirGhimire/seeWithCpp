@@ -19,6 +19,7 @@ multiviewPane::multiviewPane(QWidget *parent) :
     // match can not be clicked without selecting images
     ui->match->setEnabled(false);
     ui->fundamentalMat->setEnabled(false);
+    ui->undistort->setEnabled(false);
 
     mv_displayim = cv::Mat(500, 500, CV_32F, cv::Scalar(255, 200, 240));
     mf_showDisplayim();
@@ -140,4 +141,69 @@ void multiviewPane::on_fundamentalMat_clicked()
 void multiviewPane::on_Descriptor_activated(const QString &arg1)
 {
     mv_descriptor = 1 + ui->Descriptor->currentIndex();
+}
+
+//---------------------------------------------
+// Select directory of calibration images
+//---------------------------------------------
+void multiviewPane::on_calImagesDir_clicked()
+{
+    QString folderpath = QFileDialog::getExistingDirectory(this, tr("Open Directory"),                                                 "../../..",
+                                                           QFileDialog::ShowDirsOnly
+                                                           | QFileDialog::DontResolveSymlinks);
+
+    // if a directory was chosen
+    if(!folderpath.data()->isNull()){
+
+        // update multiview operation info. display
+        ui->multiviewOp->setText(folderpath);
+
+        if(!folderpath.isEmpty()){
+
+            QDir dir(folderpath);
+
+            // extension filters: we want to look at image files only
+            QStringList filter;
+            filter << QLatin1String("*.png");
+            filter << QLatin1String("*.jpeg");
+            filter << QLatin1String("*.jpg");
+
+            dir.setNameFilters(filter);
+            QFileInfoList filelistinfo = dir.entryInfoList();
+
+            mv_calibrationImageFiles.clear();
+            foreach (const QFileInfo &fileinfo, filelistinfo) {
+                QString imageFile = fileinfo.absoluteFilePath();
+                //imageFile is the image path, just put your (load image) code here
+                mv_calibrationImageFiles.push_back(imageFile.toStdString());
+            }
+        }
+
+    }
+
+
+}
+
+//---------------------------------------------
+// calibrate camera button pressed in multi-view and geometry pane
+//---------------------------------------------
+void multiviewPane::on_calibrateButton_clicked()
+{
+    // signal calibration only if some images available
+    if (!mv_calibrationImageFiles.empty()){
+        ui->multiviewOp->setText("Calibrating camera, please hold your breath!");
+        ui->undistort->setEnabled(true);
+
+        emit ms_calibrate_clicked();
+        qDebug() << "calibrating camera";
+    }
+}
+
+//---------------------------------------------
+// Undistort input image
+//---------------------------------------------
+void multiviewPane::on_undistort_clicked()
+{
+    ui->multiviewOp->setText("Undistorted input using camera matrix");
+    emit ms_undistort_clicked();
 }

@@ -45,8 +45,26 @@ swc_controller::swc_controller()
     // Stereo-Geomtery model
     mod_stereoGeo = new swc_stereoGeometry();
     //---------------------------------------------------------------------
+    // Camera calibration model
+    mod_camcalib = new swc_camCalib();
+    //---------------------------------------------------------------------
+
+}
+//---------------------------------------------------------------------
+// Get the current camera calibration matrix
+//---------------------------------------------------------------------
+// undistort inputim using computed camera matrix
+bool swc_controller::camcalib_undistortInputim(){
+    mod_camcalib->mf_remap(mv_inputim, mv_outputim);
+    return true;
+}
 
 
+//---------------------------------------------------------------------
+// Get the current camera calibration matrix
+//---------------------------------------------------------------------
+cv::Mat swc_controller::mf_getCamMatrix() const{
+    return mv_camMatrix;
 }
 
 //---------------------------------------------------------------------
@@ -681,5 +699,37 @@ bool swc_controller::matchImages_drawEpipolarLinesIm1and2(cv::Mat& outputim){
 bool swc_controller::matchImages_drawMatchesBwIm1and2(int descriptor){
 
     mod_matchImages->mf_drawMatchesBwIm1and2(mv_im1, mv_im2, mv_matchesIm1and2, descriptor);
+    return true;
+}
+
+//------------------------------------------------------------
+// Model : Camera calibration model
+//------------------------------------------------------------
+// set list of file names of images to use for calibration
+bool swc_controller::camcalib_setFileList(const std::vector<std::string>& fileList){
+    mod_camcalib->mf_setFileList(fileList);
+    return true;
+}
+//------------------------------------------------------------
+// Model : Camera calibration model
+//------------------------------------------------------------
+// set boardSize (in arbitrary board units; chessboard calibration)
+bool swc_controller::camcalib_setBoardSize(const cv::Size& boardSize){
+    mod_camcalib->mf_setBoardSize(boardSize);
+    return true;
+}
+//------------------------------------------------------------
+// Model : Camera calibration model
+//------------------------------------------------------------
+// get calibration matrix
+bool swc_controller::camcalib_calibrate(){
+    // add chessboard points
+    mod_camcalib->mf_addChessboardPoints();
+
+    // calibrate
+    mod_camcalib->mf_calibrate();
+
+    mv_camMatrix = mod_camcalib->mf_getCamMatrix();
+
     return true;
 }

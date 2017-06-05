@@ -3,8 +3,18 @@
 //-------------------------------------------------------
 // default constructor
 //-------------------------------------------------------
-swc_camCalib::swc_camCalib() : mv_flag(0), mv_mustInitUndistort(true)
-{};
+swc_camCalib::swc_camCalib() : mv_flag(0), mv_mustInitUndistort(true){
+    mv_boardSize = cv::Size(6, 4);
+
+}
+
+//-------------------------------------------------------
+// get camera matrix
+//-------------------------------------------------------
+cv::Mat swc_camCalib::mf_getCamMatrix()
+{
+    return mv_cameraMatrix;
+}
 
 
 //-------------------------------------------------------
@@ -71,14 +81,14 @@ int swc_camCalib::mf_addChessboardPoints(){
         bool found = cv::findChessboardCorners(
                     cbimage, mv_boardSize, imageCorners);
 
-        // Get subpixel accuracy on the corners
-        cv::cornerSubPix(cbimage, imageCorners,
-                         cv::Size(5,5),
-                         cv::Size(-1,-1),
-                         cv::TermCriteria(cv::TermCriteria::MAX_ITER +
-                                          cv::TermCriteria::EPS,
-                                          30,  // max number of iterations
-                                          0.1)); // min accuracy
+//        // Get subpixel accuracy on the corners
+//        cv::cornerSubPix(cbimage, imageCorners,
+//                         cv::Size(5,5),
+//                         cv::Size(-1,-1),
+//                         cv::TermCriteria(cv::TermCriteria::MAX_ITER +
+//                                          cv::TermCriteria::EPS,
+//                                          30,  // max number of iterations
+//                                          0.1)); // min accuracy
 
         //If we have a good board, add it to our data
         if (imageCorners.size() == mv_boardSize.area()) {
@@ -87,6 +97,10 @@ int swc_camCalib::mf_addChessboardPoints(){
             successes++;
         }
     }
+
+    // size of images used for calibration
+    mv_inputimSize = cbimage.size();
+
     return successes;
 
 }
@@ -104,7 +118,7 @@ void swc_camCalib::mf_addPoints(const std::vector<cv::Point2f> & imageCorners, c
 //-------------------------------------------------------
 // calibrates camera, returns re-projection error
 //-------------------------------------------------------
-double swc_camCalib::mf_calibrate(cv::Size &inputimSize){
+double swc_camCalib::mf_calibrate(){
 
     // undistorter must be reinitialized
     mv_mustInitUndistort= true;
@@ -116,7 +130,7 @@ double swc_camCalib::mf_calibrate(cv::Size &inputimSize){
     return
     cv::calibrateCamera(mv_objectPoints, // the 3D points
                     mv_imagePoints, // the image points
-                    inputimSize, // image size
+                    mv_inputimSize, // image size
                     mv_cameraMatrix, // output camera matrix
                     mv_distCoeffs, // output distortion matrix
                     rvecs, tvecs, // Rs, Ts

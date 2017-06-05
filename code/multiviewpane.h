@@ -34,6 +34,12 @@ private slots:
 
     void on_Descriptor_activated(const QString &arg1);
 
+    void on_calImagesDir_clicked();
+
+    void on_calibrateButton_clicked();
+
+    void on_undistort_clicked();
+
 private:
     Ui::multiviewPane *ui;
 
@@ -49,6 +55,12 @@ signals:
 
     // signal for fundamental matrix computation
     void ms_fundamentalMat_clicked();
+
+    // signal for camera calibration
+    void ms_calibrate_clicked();
+
+    // signal for undistorting input image
+    void ms_undistort_clicked();
 
 
 public:
@@ -70,6 +82,9 @@ public:
     // show result of matching
     void mf_showDisplayim();
     QImage mv_displayqim;
+
+    // image files (names) for calibrating camera
+    std::vector<std::string> mv_calibrationImageFiles;
 };
 
 #endif // MULTIVIEWPANE_H

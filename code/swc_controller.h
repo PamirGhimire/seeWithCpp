@@ -16,8 +16,9 @@
 #include "swc_kernelprocess.h"
 #include "swc_structure.h"
 #include "swc_interestpoints.h"
-#include"swc_matchimages.h"
+#include "swc_matchimages.h"
 #include "swc_stereogeometry.h"
+#include "swc_camcalib.h"
 
 class swc_controller
 {
@@ -35,6 +36,9 @@ private:
     cv::Mat mv_im1;
     cv::Mat mv_im2;
     cv::Mat mv_matchesIm1and2;
+
+    // camera matrix of calibrated camera
+    cv::Mat mv_camMatrix;
 
     //------------------------------------------------------------
     // MODELS:
@@ -84,6 +88,12 @@ private:
     swc_stereoGeometry* mod_stereoGeo;
 
     //------------------------------------------------------------
+    // Camera calibration model (camera internal params, distortion correction)
+    //------------------------------------------------------------
+    swc_camCalib* mod_camcalib;
+
+
+    //------------------------------------------------------------
     //
     //------------------------------------------------------------
 public:
@@ -102,6 +112,9 @@ public:
 
     // Set input image;
     bool mf_setInputImage(std::string filename);
+
+    // Get the current camera calibration matrix
+    cv::Mat mf_getCamMatrix() const;
 
     // Get the current input image
     cv::Mat mf_getInputImage() const;
@@ -351,6 +364,22 @@ public:
 
     // draw epipolar lines, if imindex == 1, selPoints come from left image
     bool stereoGeo_drawEpipolarLines(int imindex = 2);
+
+    //------------------------------------------------------------
+    // Model : Camera calibration model
+    //------------------------------------------------------------
+
+    // set list of file names of images to use for calibration
+    bool camcalib_setFileList(const std::vector<std::string>& fileList);
+
+    // set boardSize (in arbitrary board units; chessboard calibration)
+    bool camcalib_setBoardSize(const cv::Size& boardSize);
+
+    // return calibration matrix
+    bool camcalib_calibrate();
+
+    // undistort inputim using computed camera matrix
+    bool camcalib_undistortInputim();
 
     //------------------------------------------------------------
     // Model :

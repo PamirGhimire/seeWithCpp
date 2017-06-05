@@ -63,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_multiviewPane, SIGNAL(ms_setIm2_clicked()), this, SLOT(on_setIm2_in_multiviewPane_clicked()) );
     connect(mw_multiviewPane, SIGNAL(ms_im12Match_clicked()), this, SLOT(on_matchIm12_in_multiviewPane_clicked()) );
     connect(mw_multiviewPane, SIGNAL(ms_fundamentalMat_clicked()), this, SLOT(on_fundamentalMat_in_multiviewPane_clicked()) );
+    connect(mw_multiviewPane, SIGNAL(ms_calibrate_clicked()), this, SLOT(on_calibrate_in_multiviewPane_clicked()) );
+    connect(mw_multiviewPane, SIGNAL(ms_undistort_clicked()), this, SLOT(on_undistort_in_multiviewPane_clicked()) );
     //----------------------------------------------------------
 }
 
@@ -390,6 +392,32 @@ void MainWindow::on_fundamentalMat_in_multiviewPane_clicked(){
     mw_multiviewPane->mv_displayim = epilinesImage;
     mw_multiviewPane->mf_showDisplayim();
 
+}
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_calibrate_in_multiviewPane_clicked(){
+
+
+
+    // pass the image list to be used for calibration to controller
+    controller->camcalib_setFileList(mw_multiviewPane->mv_calibrationImageFiles);
+
+    // ask controller to calibrate the related camera
+    controller->camcalib_calibrate();
+
+    // display the related camera matrix
+    mw_matrixOutput->mv_matname = "camera matrix";
+    mw_matrixOutput->mv_mat = controller->mf_getCamMatrix();
+    mw_matrixOutput->mf_displayMvmat();
+}
+
+//---------------------------------------------------------------------------------------
+// multi-view and geometry pane slots
+//---------------------------------------------------------------------------------------
+void MainWindow::on_undistort_in_multiviewPane_clicked(){
+    controller->camcalib_undistortInputim();
+    mf_mainwindow_setdisplay();
 }
 
 //---------------------------------------------------------------------------------------

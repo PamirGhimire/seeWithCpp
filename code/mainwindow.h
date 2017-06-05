@@ -89,6 +89,11 @@ private slots:
 
     void on_fundamentalMat_in_multiviewPane_clicked();
 
+    void on_calibrate_in_multiviewPane_clicked();
+
+    void on_undistort_in_multiviewPane_clicked();
+
+
     // input ui for structuring element (morphology)
     void on_ok_in_selInput_clicked();
     // input ui for 3x3 kernel (im convolutions)

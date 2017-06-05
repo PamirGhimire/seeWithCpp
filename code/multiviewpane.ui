@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>672</width>
-    <height>545</height>
+    <width>800</width>
+    <height>547</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,7 +121,7 @@
     <rect>
      <x>20</x>
      <y>100</y>
-     <width>640</width>
+     <width>741</width>
      <height>400</height>
     </rect>
    </property>
@@ -150,7 +150,7 @@
   <widget class="QTextBrowser" name="multiviewOp">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>550</x>
      <y>70</y>
      <width>211</width>
      <height>30</height>
@@ -160,6 +160,73 @@
     <font>
      <pointsize>8</pointsize>
     </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="calImagesDir">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>40</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Calib. Images Folder</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="CameraCalibrationbanner">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>10</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Camera Calibration</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="calibrateButton">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>70</y>
+     <width>80</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Calibrate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="undistort">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>70</y>
+     <width>91</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Undistort Input</string>
    </property>
   </widget>
  </widget>
