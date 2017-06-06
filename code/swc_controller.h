@@ -8,6 +8,7 @@
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 #include<qdebug.h>
+#include<QException>
 
 #include"swc_addnoisesaltandpepper.h"
 #include"swc_addlogo.h"

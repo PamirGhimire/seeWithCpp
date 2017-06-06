@@ -483,7 +483,10 @@ void MainWindow::on_saveinput_clicked()
                                                     "/home/jana/untitled.png",
                                                     tr("Images (*.png *.xpm *.jpg)"));
 
-    if (!fileName.data()->isNull()){
+
+    int lastPoint = fileName.lastIndexOf(".");
+
+    if (!fileName.data()->isNull() && lastPoint > 0){
         controller->mf_saveInputim(fileName.toStdString());
     }
 
@@ -498,7 +501,9 @@ void MainWindow::on_saveImage_clicked()
                                                     "/home/jana/untitled.png",
                                                     tr("Images (*.png *.xpm *.jpg)"));
 
-    if (!fileName.data()->isNull()){
+    int lastPoint = fileName.lastIndexOf(".");
+
+    if (!fileName.data()->isNull() && lastPoint > 0){
         controller->mf_saveOutputim(fileName.toStdString());
     }
 
