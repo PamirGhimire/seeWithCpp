@@ -50,8 +50,28 @@ swc_controller::swc_controller()
     //---------------------------------------------------------------------
 
 }
+
+//---------------------------------------------------------------------------------------
+// Controller : save input image (for saving camera snaps)
+//---------------------------------------------------------------------------------------
+// Save inputim (for saving camera snaps)
+bool swc_controller::mf_saveInputim(std::string savefilename){
+
+    // save input image container as save filename
+    return cv::imwrite(savefilename, mv_inputim, std::vector<int>());
+}
+
+//---------------------------------------------------------------------------------------
+// Controller : save output image
+//---------------------------------------------------------------------------------------
+// Save outputim
+bool swc_controller::mf_saveOutputim(std::string savefilename){
+    // save output image container as save filename
+    return cv::imwrite(savefilename, mv_outputim, std::vector<int>());
+}
+
 //---------------------------------------------------------------------
-// Get the current camera calibration matrix
+// Controller : Get the current camera calibration matrix
 //---------------------------------------------------------------------
 // undistort inputim using computed camera matrix
 bool swc_controller::camcalib_undistortInputim(){
@@ -61,7 +81,7 @@ bool swc_controller::camcalib_undistortInputim(){
 
 
 //---------------------------------------------------------------------
-// Get the current camera calibration matrix
+// Controller : Get the current camera calibration matrix
 //---------------------------------------------------------------------
 cv::Mat swc_controller::mf_getCamMatrix() const{
     return mv_camMatrix;
@@ -108,7 +128,7 @@ bool swc_controller::mf_setInputImage(std::string filename)
     }
 }
 //---------------------------------------------------------------------
-// Set im1 (for matching between im1 and im2)
+// Controller : Set im1 (for matching between im1 and im2)
 //---------------------------------------------------------------------
 bool swc_controller::mf_setIm1(std::string filename){
 
@@ -130,7 +150,7 @@ bool swc_controller::mf_setIm1(std::string filename){
 }
 
 //---------------------------------------------------------------------
-// Set im2 (for matching between im1 and im2)
+// Controller : Set im2 (for matching between im1 and im2)
 //---------------------------------------------------------------------
 bool swc_controller::mf_setIm2(std::string filename){
     cv::Mat im2 = cv::imread(filename, 0);

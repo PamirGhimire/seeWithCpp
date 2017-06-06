@@ -107,6 +107,12 @@ public:
     // Controller:
     //------------------------------------------------------------
 
+    // Save inputim (for saving camera snaps)
+    bool mf_saveInputim(std::__cxx11::string savefilename);
+
+    // Save outputim
+    bool mf_saveOutputim(std::__cxx11::string savefilename);
+
     // Set mv_inputim
     bool mf_setMvInputim(const cv::Mat& inputim);
 

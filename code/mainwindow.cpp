@@ -472,3 +472,34 @@ void MainWindow::on_pauseVideo_clicked()
 {
     mv_processVideoFlag = false;
 }
+
+//---------------------------------------------------------------------------------------
+// Save input image (for saving camera snaps)
+//---------------------------------------------------------------------------------------
+void MainWindow::on_saveinput_clicked()
+{
+    // get save file name
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    "/home/jana/untitled.png",
+                                                    tr("Images (*.png *.xpm *.jpg)"));
+
+    if (!fileName.data()->isNull()){
+        controller->mf_saveInputim(fileName.toStdString());
+    }
+
+}
+//---------------------------------------------------------------------------------------
+// Save output image
+//---------------------------------------------------------------------------------------
+void MainWindow::on_saveImage_clicked()
+{
+    // get save file name
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                                    "/home/jana/untitled.png",
+                                                    tr("Images (*.png *.xpm *.jpg)"));
+
+    if (!fileName.data()->isNull()){
+        controller->mf_saveOutputim(fileName.toStdString());
+    }
+
+}
