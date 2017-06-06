@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
     md_cam = new cv::VideoCapture();
     md_cam->open(0);
 
+    // Initialize camera thread and worker
+    mt_cam0 = new QThread;
+    mw_camstreamer = new swc_camstream();
+    mw_camstreamer->moveToThread(mt_cam0);
+
     // Initialize process video flag as false
     mv_processVideoFlag = false;
 
@@ -66,6 +71,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mw_multiviewPane, SIGNAL(ms_calibrate_clicked()), this, SLOT(on_calibrate_in_multiviewPane_clicked()) );
     connect(mw_multiviewPane, SIGNAL(ms_undistort_clicked()), this, SLOT(on_undistort_in_multiviewPane_clicked()) );
     //----------------------------------------------------------
+
+    //----------------------------------------------------------
+    // connect mainwindow with worker signals
+    //----------------------------------------------------------
+    // cam streamer has available frame
+    connect(mw_camstreamer, SIGNAL(ms_frameAvailable()), this, SLOT(on_camstream_frame_available()) );
+
+    //------------------------
+    // Connect member threads with workers
+    //------------------------
+    connect(mt_cam0, SIGNAL(started()), mw_camstreamer, SLOT(mf_camcapture()) );
+    connect(mt_cam0, SIGNAL(finished()), mw_camstreamer, SLOT(mf_releaseCam()) );
+    connect(mt_cam0, SIGNAL(finished()), mt_cam0, SLOT(quit()) );
+
 }
 
 //----------------------------------------------------------
@@ -74,6 +93,17 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+//----------------------------------------------------------
+// slot for camstreamer's frames
+//----------------------------------------------------------
+void MainWindow::on_camstream_frame_available(){
+    controller->mf_setMvInputim(mw_camstreamer->mf_getCurrentFrame());
+
+    if (mv_processVideoFlag){
+        on_apply_in_processPane_clicked();
+    }
+
 }
 
 //----------------------------------------------------------
@@ -92,9 +122,6 @@ void MainWindow::on_apply_in_processPane_clicked()
 {
     // update code for current one view process
     mv_currentOneViewProcess = mw_oneViewProcessesPane->mf_getCurrentOneViewProcess();
-
-    // change process-video flag to true
-    mv_processVideoFlag = true;
 
     // the process manager is called only if the current process is an image-to-image process
     if (mv_currentOneViewProcess < showHistogram){
@@ -425,9 +452,33 @@ void MainWindow::on_undistort_in_multiviewPane_clicked(){
 //---------------------------------------------------------------------------------------
 void MainWindow::on_camVideo_clicked()
 {
-    // signal to video-capture thread to start or stop capturing (= updating inputim container in controller)
+    if (mv_processVideoFlag == false){
+        // toggle flag
+        mv_processVideoFlag = true;
 
-    // if processVideo flag is true, process the grabbed frame
+        // release main-window's camera
+        md_cam->release();
+
+        qDebug() << "starting stream thread since play/pause cam clicked";
+        mt_cam0->start();
+
+    }
+
+    else if(mv_processVideoFlag == true){
+        // toggle flag
+        mv_processVideoFlag = false;
+
+        // stop the thread
+        emit ms_closeStream();
+        mt_cam0->wait(500);
+        mt_cam0->quit();
+
+        // release worker's camera
+        mw_camstreamer->mf_releaseCam();
+
+        qDebug() << "stopping thread because processVideo flag is true";
+    }
+
 }
 
 //---------------------------------------------------------------------------------------

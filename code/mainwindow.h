@@ -12,12 +12,14 @@
 #include"swc_matrixinput.h"
 #include"swc_matrixoutput.h"
 #include"swc_settwothresholds.h"
+#include"swc_camstream.h"
 
 #include<opencv2/core/core.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 #include<opencv2/video/video.hpp>
 
 #include<qdebug.h>
+#include<qthread.h>
 
 //----------------------------------------------------
 // One-view process code words:
@@ -73,6 +75,9 @@ private slots:
 
     void on_pauseVideo_clicked();
 
+    // slots for threads
+    void on_camstream_frame_available();
+
 
     // one-view process pane slots
     void on_apply_in_processPane_clicked();
@@ -105,6 +110,9 @@ private slots:
 
     void on_saveImage_clicked();
 
+signals:
+    void ms_closeStream();
+
 private:
     Ui::MainWindow *ui;
 
@@ -116,6 +124,12 @@ private:
 
     // process-video flag
     bool mv_processVideoFlag;
+
+    // video capture thread
+    QThread* mt_cam0;
+
+    // video capture worker
+    swc_camstream* mw_camstreamer;
 
     // Member-window containing one-view processes
     processesPane* mw_oneViewProcessesPane;

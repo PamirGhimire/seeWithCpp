@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     swc_stereogeometry.cpp \
     multiviewpane.cpp \
     swc_matchimages.cpp \
-    swc_matrixoutput.cpp
+    swc_matrixoutput.cpp \
+    swc_camstream.cpp
 
 HEADERS  += mainwindow.h \
     processespane.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     swc_stereogeometry.h \
     multiviewpane.h \
     swc_matchimages.h \
-    swc_matrixoutput.h
+    swc_matrixoutput.h \
+    swc_camstream.h
 
 FORMS    += mainwindow.ui \
     processespane.ui \
