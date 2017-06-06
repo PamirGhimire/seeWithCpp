@@ -130,6 +130,8 @@ bool swc_interestPoints::mf_drawKeypointsOnImage(const cv::Mat& inputim, cv::Mat
 
 void swc_interestPoints::mf_drawHarrisCornersOnImage(const cv::Mat &inputim, cv::Mat& outputim){
 
+    mv_harrisCornerPoints.clear();
+
     // compute harris values
     mf_computeHarrisValues(inputim);
 

@@ -541,7 +541,7 @@
    <widget class="QPushButton" name="camSnap">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>4</x>
       <y>180</y>
       <width>87</width>
       <height>31</height>
@@ -559,7 +559,7 @@
    <widget class="QPushButton" name="camVideo">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>4</x>
       <y>140</y>
       <width>87</width>
       <height>31</height>
@@ -760,7 +760,7 @@
    <widget class="QPushButton" name="saveinput">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>4</x>
       <y>220</y>
       <width>87</width>
       <height>31</height>

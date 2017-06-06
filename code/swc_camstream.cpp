@@ -21,7 +21,6 @@ void swc_camstream::mf_camcapture(){
     mv_threadIsActive = true;
 
     while (1){
-        qDebug() << "trying to capture";
 
         // get camera if it is not available
         if (!md_cam->isOpened()){
@@ -31,7 +30,8 @@ void swc_camstream::mf_camcapture(){
         cv::Mat frame;
         md_cam->read(frame);
         if (!frame.empty()){
-            cv::cvtColor(frame, mv_currFrame, CV_RGB2GRAY);
+            cv::resize(frame, mv_currFrame, cv::Size(320, 240));
+            cv::cvtColor(mv_currFrame, mv_currFrame, CV_RGB2GRAY);
             emit ms_frameAvailable();
 
         }

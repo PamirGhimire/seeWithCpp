@@ -136,6 +136,9 @@ void MainWindow::on_apply_in_processPane_clicked()
     // if not, the measurement is shown in a different window
     else{
 
+        // update display
+        mf_mainwindow_setdisplay();
+
         switch(mv_currentOneViewProcess){
 
         // measurement = histogram of input image
@@ -146,6 +149,7 @@ void MainWindow::on_apply_in_processPane_clicked()
             cv::namedWindow("Histogram of Input Image");
             cv::imshow("Histogram of Input Image", histImage);
             cv::waitKey(0);
+            break;
         }
 
             // measurement = histogram of output image
@@ -156,6 +160,7 @@ void MainWindow::on_apply_in_processPane_clicked()
             cv::namedWindow("Histogram of output Image");
             cv::imshow("Histogram of Output Image", histImage);
             cv::waitKey(0);
+            break;
         }
 
         }
