@@ -3,6 +3,7 @@
 GUI based computer vision toolbox developed using Qt(5.7) and OpenCv(3.2).
 
 Requirements:
+
 -OpenCV 3.2 core and non-free (contrib) modules.
 
 -Qt (5.7)
