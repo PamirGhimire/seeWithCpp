@@ -10,7 +10,7 @@ Requirements:
 
 - Qt (5.7)
 
--Ubuntu (make changes to the project file (.pro) to have it running on windows)
+The toolbox was developed on Ubuntu 16.04.
 
 The GUI offers following functionalities:
 
