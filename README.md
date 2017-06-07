@@ -10,7 +10,7 @@ Requirements:
 
 - Qt (5.7)
 
-The toolbox was developed on Ubuntu 16.04.
+The toolbox was developed in Ubuntu 16.04.
 
 The GUI offers following functionalities:
 
